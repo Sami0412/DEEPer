@@ -1,0 +1,26 @@
+version: "3.7"
+
+services:
+  php:
+    environment:
+      PHP_OPCACHE_VALIDATE_TIMESTAMPS: 1
+      PHP_IDE_CONFIG: serverName=deeper.local
+    volumes:
+      - ./docker/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini:ro
+  apache:
+    ports:
+      - '80:80'
+      - '443:443'
+  mysql:
+    ports:
+      - '3307:3306'
+    environment:
+      MYSQL_DATABASE: project
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: deeper
+      MYSQL_PASSWORD: "p455w0rd!"
+      TZ: Europe/London
+  redis:
+    command: redis-server /usr/local/etc/redis/redis.conf --appendonly yes
+    ports:
+      - '63790:6379'

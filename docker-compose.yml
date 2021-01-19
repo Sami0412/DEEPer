@@ -1,0 +1,43 @@
+version: "3.7"
+
+services:
+  php:
+    build:
+      context: ./
+      dockerfile: ./docker/php/Dockerfile
+    depends_on:
+      - mysql
+      - redis
+    volumes:
+      - ./:/var/www/sites/deeper.local:consistent
+      - ./project/vendor/:/var/www/sites/deeper.local/project/vendor/:ro
+  apache:
+    build:
+      context: ./
+      dockerfile: ./docker/apache/Dockerfile
+    restart: always
+    volumes:
+      - ./:/var/www/sites/deeper.local:delegated
+      - ./project/vendor/:/var/www/sites/deeper.local/project/vendor/:ro
+      - ./docker/apache/conf.d/server.conf:/etc/httpd/conf.d/server.conf:ro
+      - ./docker/apache/includes/:/etc/httpd/includes/:ro
+      - ./docker/apache/sites.d/:/etc/httpd/sites.d/:ro
+  mysql:
+    image: mysql:5.7
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW --default-authentication-plugin=mysql_native_password
+    restart: always
+    volumes:
+      - db:/var/lib/mysql
+      - ./docker/mysql/initial_sql/:/docker-entrypoint-initdb.d/:ro
+      - ./docker/mysql/my.cnf:/etc/mysql/mysql.conf.d/my.cnf:ro
+  redis:
+    image: redis:latest
+    restart: always
+    sysctls:
+      net.core.somaxconn: 1024
+    volumes:
+      - redis:/data:delegated
+      - ./docker/redis/redis.conf:/usr/local/etc/redis/redis.conf:ro
+volumes:
+  db:
+  redis:
