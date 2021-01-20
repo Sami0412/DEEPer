@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HTML Practice</title>
+</head>
+<body>
+<h1>My First Webpage</h1>
+<p>This is the first webpage I created on the DEEPer course. Hopefully in a few weeks time I can look back and laugh at the absolute state of this.</p>
+<br>
+<h3>A Table</h3>
+<p>Here is a useless table of some HTML tags & attributes I have learned and used in this page, along with their uses:</p>
+<table border = "1">
+    <thead>
+        <tr>
+            <th>Tag</th>
+            <th>Uses</th>
+            <th>Attribute</th>
+            <th>Uses</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>html</td>
+            <td>Root element</td>
+            <td>src</td>
+            <td>source e.g.url</td>
+        </tr>
+        <tr>
+            <td>h1 - h6</td>
+            <td>Headings</td>
+            <td>type</td>
+            <td>Determine input type</td>
+        </tr>
+        <tr>
+            <td>p</td>
+            <td>Paragraph</td>
+            <td>value</td>
+            <td>Assigns a value</td>
+        </tr>
+        <tr>
+            <td>table</td>
+            <td>Sets up a table</td>
+            <td>id</td>
+            <td>Unique identifier</td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="4">Disclaimer: Info in this table may be incorrect</td>
+        </tr>
+    </tfoot>
+</table>
+<br>
+<h3>A Nice Picture</h3>
+<p>Here is a picture of a dead nice cat:</p>
+<figure>
+    <img src = "https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/other/cat_relaxing_on_patio_other/1800x1200_cat_relaxing_on_patio_other.jpg?resize=750px:*" alt = "A relaxed cat">
+    <figcaption>A very relaxed cat</figcaption>
+</figure>
+<p>Click <a href = "https://pixabay.com/images/search/cat/">here</a> for more pictures of excellent cats</p>
+<br>
+<h3>A Quote</h3>
+<blockquote cite = "https://www.goodreads.com/quotes/tag/cats">
+    <p>“What greater gift than the love of a cat.”</p>
+    <cite>Charles Dickens</cite>
+</blockquote>
+<h3>A Form</h3>
+<p>Please enter your details and preferred pet type.</p>
+<form action ="#" method = "POST">
+    <p>Please complete the following:</p>
+    <label for = "firstName">First Name: </label>
+    <input id = "firstName" type = "text" name = "firstName" placeholder = "Enter first name...">
+    <br>
+    <br>
+    <label for = "surname">Surname: </label>
+    <input id = "surname" type = "text" name = "surname" placeholder = "Enter second name...">
+    <br>
+    <br>
+    <label for = "dob">Date of Birth: </label>
+    <input id = "dob" type = "date" name = "dob">
+    <br>
+    <br>
+    <p>Please select preferred animals:</p>
+    <label for = "cats">Cats</label>
+    <input type = "checkbox" id = "cats" name = "animals[]" value = "cats">
+    <label for = "dogs">Dogs</label>
+    <input type = "checkbox" id = "dogs" name = "animals[]" value = "dogs">
+    <br>
+    <label for = "rabbits">Rabbits</label>
+    <input type = "checkbox" id = "rabbits" name = "animals[]" value = "rabbits">
+    <label for = "birds">Birds</label>
+    <input type = "checkbox" id = "birds" name = "animals[]" value = "birds">
+    <br>
+    <br>
+    <label for = "garden">Do you have a garden?</label>
+    <select name = "garden" id = "garden">
+        <option value = "yes">Yes</option>
+        <option value = "no">No</option>
+    </select>
+    <br>
+    <br>
+    <p>Please check your answers and press submit.</p>
+    <button type = "submit">Submit</button>
+    <br>
+    <br>
+</form>
+</body>
+<footer>
+<p>***********************************************************************************************</p>
+</footer>
+</html>
