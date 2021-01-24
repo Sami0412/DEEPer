@@ -1,0 +1,99 @@
+body {
+    font-family: Arial, serif;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    border-style: solid;
+    border-width: thin;
+    border-color: lightgrey;
+    margin: 1% 10% 1% 10%;
+}
+
+.pic-container {
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+    height: auto;
+    overflow: hidden;
+    margin: 1%;
+}
+
+.main-pic {
+    max-width: 100%;
+    max-height: auto;
+    margin-top: -10%;
+}
+
+.pics {
+    display: flex;
+    justify-content: space-between;
+}
+
+.small-pic {
+    width: 32%;
+}
+
+.beer-intro {
+    flex-direction: column;
+    width: 45%;
+    margin: 1%;
+    line-height: 1.5;
+}
+
+h1 {
+    font-size: 2em;
+    line-height: 1;
+}
+
+button {
+    background-color: dodgerblue;
+    color: white;
+    padding: 0.5em;
+}
+
+h2 {
+    margin: 1% 10% 1% 10%;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    border-style: solid;
+    border-width: thin;
+    border-color: lightgrey;
+    margin: 1% 10% 1% 10%;
+    padding-top: 1%;
+    padding-bottom: 3%;
+}
+
+hr {
+    grid-column: 1/-1;
+    border: 1px solid lightgrey;
+    width: 96%;
+    margin: 1%;
+}
+
+.stat-item {
+    margin: 3% 5% 3% 5%;
+}
+
+.checkins {
+    border-style: solid;
+    border-width: thin;
+    border-color: lightgrey;
+    margin: 1% 10% 1% 10%;
+    padding: 2% 1%;
+    line-height: 1.5;
+}
+
+.name-rating {
+    display: flex;
+    flex-direction: row;
+    font-size: 1.3em;
+}
+
+.user-rating {
+    padding-left: 1%;
+}
