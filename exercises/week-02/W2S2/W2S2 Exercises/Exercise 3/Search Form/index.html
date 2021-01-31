@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Product Search</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+</head>
+<body class="container">
+<article class="container">
+    <h1 class="text-center p-4">Product Search</h1>
+    <h3>Use this form to search for your desired item</h3>
+    <form>
+        <div class="row p-3">
+            <div class="form-check form-check-inline col-3">
+                <input class="form-check-input" type="radio" id="male">
+                <label class="form-check-label" for="male">Male</label>
+            </div>
+            <div class="form-check form-check-inline col-3">
+                <input class="form-check-input" type="radio" id="female">
+                <label class="form-check-label" for="female">Female</label>
+            </div>
+            <div class="form-check form-check-inline col-3">
+                <input class="form-check-input" type="radio" id="unisex">
+                <label class="form-check-label" for="unisex">Unisex</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="clothing-type">Type of Clothing:</label>
+            <select class="form-control" id="clothing-type">
+                <option>Dresses</option>
+                <option>Trousers</option>
+                <option>Shirts</option>
+                <option>Jumpers</option>
+                <option>Skirts</option>
+                <option>Sleepwear</option>
+            </select>
+        </div>
+        <p>Size:</p>
+        <div class="pb-3">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="xs">
+                <label class="form-check-label" for="xs">XS</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="s">
+                <label class="form-check-label" for="s">S</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="M">
+                <label class="form-check-label" for="M">M</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="l">
+                <label class="form-check-label" for="l">L</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="keyword">Keywords:</label>
+            <input type="text" class="form-control" name="keyword" id="keyword">
+        </div>
+        <div class="row pb-3 form-control-lg mb-5">
+            <div class="form-check form-check-inline col-3">
+                <input class="form-check-input" type="checkbox" id="red">
+                <label class="form-check-label" for="red">Red</label>
+            </div>
+            <div class="form-check form-check-inline col-3">
+                <input class="form-check-input" type="checkbox" id="blue">
+                <label class="form-check-label" for="blue">Blue</label>
+            </div>
+            <div class="form-check form-check-inline col-3">
+                <input class="form-check-input" type="checkbox" id="green">
+                <label class="form-check-label" for="green">Green</label>
+            </div>
+            <div class="form-check form-check-inline col-3">
+                <input class="form-check-input" type="checkbox" id="purple">
+                <label class="form-check-label" for="purple">Purple</label>
+            </div>
+            <div class="form-check form-check-inline col-3">
+                <input class="form-check-input" type="checkbox" id="orange">
+                <label class="form-check-label" for="orange">Orange</label>
+            </div>
+            <div class="form-check form-check-inline col-3">
+                <input class="form-check-input" type="checkbox" id="brown">
+                <label class="form-check-label" for="brown">Brown</label>
+            </div>
+            <div class="form-check form-check-inline col-3">
+                <input class="form-check-input" type="checkbox" id="yellow">
+                <label class="form-check-label" for="yellow">Yellow</label>
+            </div>
+            <div class="form-check form-check-inline col-3">
+                <input class="form-check-input" type="checkbox" id="pink">
+                <label class="form-check-label" for="pink">Pink</label>
+            </div>
+        </div>
+        <div class="form-group p-6">
+            <label for="price" class="pt-3">Maximum Price (£):</label>
+            <input type="number" class="form-control" id="price">
+        </div>
+        <button type="button" class="btn btn-primary">Search</button>
+    </form>
+</article>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+</body>
+</html>
