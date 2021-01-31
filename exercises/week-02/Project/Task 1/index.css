@@ -1,0 +1,126 @@
+body {
+    font-family: Arial, serif;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    border-style: solid;
+    border-width: thin;
+    border-color: lightgrey;
+    margin: 1% 10% 1% 10%;
+}
+
+.pic-container {
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+    height: auto;
+    margin: 1%;
+    overflow: hidden;
+}
+
+.main-pic {
+    max-width: 100%;
+    max-height: 80%;
+    object-fit: contain;
+    margin-bottom: 1%;
+}
+
+.pics {
+    display: flex;
+    justify-content: space-between;
+}
+
+.small-pic {
+    width: 32%;
+    height: 100%;
+}
+
+#pic4 {
+    max-height: 200px;
+}
+
+.beer-intro {
+    flex-direction: column;
+    width: 45%;
+    margin: 1%;
+    line-height: 1.5;
+}
+
+h1 {
+    font-size: 2em;
+    line-height: 1;
+}
+
+button {
+    background-color: dodgerblue;
+    color: white;
+    padding: 0.5em;
+}
+
+h2 {
+    margin: 1% 10% 1% 10%;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    border-style: solid;
+    border-width: thin;
+    border-color: lightgrey;
+    margin: 1% 10% 1% 10%;
+    padding-top: 1%;
+    padding-bottom: 3%;
+}
+
+hr {
+    grid-column: 1/-1;
+    border: 1px solid lightgrey;
+    width: 96%;
+    margin: 1%;
+}
+
+.stat-item {
+    margin: 3% 5% 3% 5%;
+}
+
+.checkins {
+    border-style: solid;
+    border-width: thin;
+    border-color: lightgrey;
+    margin: 1% 10% 1% 10%;
+    padding: 2% 1%;
+    line-height: 1.5;
+}
+
+.name-rating {
+    display: flex;
+    flex-direction: row;
+    font-size: 1.3em;
+}
+
+.user-rating {
+    padding-left: 1%;
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        display: block;
+        margin: 1%;
+        padding: 1%;
+    }
+    .pic-container {
+        width: 98%;
+        margin: 1%;
+        height: auto;
+    }
+    .pics {
+        display: flex;
+        justify-content: space-between;
+        max-height: 100px;
+    }
+    .beer-intro {
+        width: 100%;
+    }
+}

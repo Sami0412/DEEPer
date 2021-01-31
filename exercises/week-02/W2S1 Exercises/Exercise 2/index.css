@@ -1,0 +1,28 @@
+body {
+    font-family: "MedievalSharp";
+}
+
+h1,h2 {
+    text-align: center;
+    font-size: 2rem;
+    text-decoration: underline;
+}
+
+.contents {
+    text-align: center;
+}
+
+h3 {
+    text-align: center;
+    font-size: 1.5rem;
+    text-decoration: underline;
+}
+
+.section-container {
+    border: 2px solid lightgrey;
+    border-radius: 10px;
+    margin: 2rem;
+    padding: 1rem;
+    font-size: 1.1rem;
+    line-height: 1.5;
+}

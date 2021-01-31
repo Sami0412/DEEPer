@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Validate Form</title>
+    <style>
+        .invalid {
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Your Details</h1>
+    <form id="my-form">
+        <div>
+            <label for="your-name">Your Name:</label>
+            <input type="text" name="name" id="your-name">
+        </div>
+        <div>
+            <label for="your-age">Your Age:</label>
+            <input type="number" name="age" id="your-age">
+        </div>
+        <div>
+            <label for="event-test">Event:</label>
+            <input
+                    type="text"
+                    name="some-name"
+                    id="event-test"
+            >
+        </div>
+        <input type="submit" value="submit">
+    </form>
+    <script>
+        document.addEventListener("DOMContentLoaded", initForm);
+
+        function initForm() {
+            var form = document.getElementById("my-form");
+            form.addEventListener("submit", validateForm);
+
+            var eventTest = document.getElementById("event-test");
+            eventTest.addEventListener("keydown", onEvent);
+            eventTest.addEventListener("keyup", onEvent);
+            eventTest.addEventListener("keypress", onEvent);
+            eventTest.addEventListener("change", onChange);
+        }
+
+        function onEvent(e) {
+            console.log(e.type);
+        }
+
+        function onChange(ev) {
+            //var eventTest = document.getElementById("event-test");
+            //console.log(eventTest.value);
+
+            console.log(ev.currentTarget.value);
+        }
+
+        function validateForm(e) {
+            //var isValid = true;
+
+            var nameInput = document.getElementById("your-name");
+            var ageInput = document.getElementById("your-age");
+
+            nameInput.classList.remove('invalid');
+            ageInput.classList.remove('invalid');
+
+            if (nameInput.value.length === 0) {
+                nameInput.classList.add('invalid');
+                //isValid = false;
+                e.preventDefault();
+            }
+
+            if (ageInput.value < 14) {
+                ageInput.classList.add('invalid');
+                //isValid = false;
+                e.preventDefault();
+            }
+
+            //return isValid;
+        }
+    </script>
+</body>
+</html>
