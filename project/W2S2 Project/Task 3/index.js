@@ -1,6 +1,7 @@
 axios.get("http://localhost:8080/checkins")
 .then(function (response) {
     console.log("response");
+
     if (response.data.length>0) {
         //$("#rating").text(response.data[0].rating);
         for (var i=0; i < response.data.length; i++) {
