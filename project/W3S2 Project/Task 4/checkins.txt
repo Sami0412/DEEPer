@@ -1,0 +1,1 @@
+O:7:"CheckIn":4:{s:4:"name";s:4:"Sami";s:6:"rating";s:1:"1";s:6:"review";s:2:"ew";s:9:"timestamp";s:10:"2021-02-07";}O:7:"CheckIn":4:{s:4:"name";s:4:"Sami";s:6:"rating";s:1:"1";s:6:"review";s:2:"ew";s:9:"timestamp";s:10:"2021-02-07";}O:7:"CheckIn":4:{s:4:"name";s:4:"John";s:6:"rating";s:1:"5";s:6:"review";s:9:"Excellent";s:9:"timestamp";s:10:"2021-02-07";}
