@@ -6,7 +6,6 @@ $("#myForm").on("submit", function(e) {
     var b = $("#b").val();
     var op = $("#operation").val();
 
-
    //Place data into object to use with axios
     var data = {
         a: a,
