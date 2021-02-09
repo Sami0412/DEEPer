@@ -1,0 +1,12 @@
+{
+    "name": "user/lecture",
+    "description": "My Project",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Sami Williams",
+            "email": "samiw0412@gmail.com"
+        }
+    ],
+    "require": {}
+}

@@ -16,15 +16,7 @@ if (!empty($_POST)) {
     $checkInInstance->timestamp = date("Y-m-d", time());
 
     //create array for checkin data for first instance
-    if (file_exists("checkins.txt") == 0) {
-        $checkInsArray = [];
-        //add checkin data to array
-        array_push($checkInsArray, $checkInInstance);
-        //serialise array
-        $serialisedArray = serialize($checkInsArray);
-        //place serialised array into file
-        file_put_contents("checkins.txt", $serialisedArray);
-    } else {
+    if (file_exists("checkins.txt")) {
         //for each new check in data remove and unserialise array from file
         $checkInsSoFar = file_get_contents("checkins.txt");
         $unserialisedCheckIns = unserialize($checkInsSoFar);
@@ -40,27 +32,21 @@ if (!empty($_POST)) {
             echo "<p>$checkInContents->review</p>";
             echo "<p>$checkInContents->timestamp</p>";
         }
+    } else {
+        $checkInsArray = [];
+        //add checkin data to array
+        array_push($checkInsArray, $checkInInstance);
+        //serialise array
+        $serialisedArray = serialize($checkInsArray);
+        //place serialised array into file
+        file_put_contents("checkins.txt", $serialisedArray);
     }
+    die();
 }
+//show recent checkins - outside
+if (file_exists("my"))
+//unserialise and display
 
-//    $checkinFile = 'check-ins.txt';
-//    if (file_exists($checkinFile) == false) {
-//        $checkInsArray = [];
-//        array_push($checkInsArray, $checkInInstance);
-//        $txtData = serialize($checkInsArray);
-//        file_put_contents($checkinFile, $txtData);
-//    } else {
-//        $fileContent = file_get_contents($checkinFile);
-//        $fileContent = unserialize($fileContent);
-//        array_push($fileContent, $checkInInstance);
-//        $txtData = serialize($fileContent);
-//        file_put_contents($checkinFile, $txtData);
-//        foreach ($fileContent as $checkin) {
-//            echo "<h3>$checkin->name  $checkin->rating</h3>";
-//            echo "<p>$checkin->review</p>";
-//        }
-//    }
-//}
 ?>
 
 <!doctype html>
@@ -119,7 +105,7 @@ if (!empty($_POST)) {
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form action="" method="post">
+                            <form action="" method="post" id="myForm">
                                 <div class="form-group">
                                     <label for="userName">Name:</label>
                                     <input type="text" name="userName" id="userName" class="form-control">

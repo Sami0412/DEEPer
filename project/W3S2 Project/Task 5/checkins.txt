@@ -1,1 +1,1 @@
-a:2:{i:0;O:7:"CheckIn":4:{s:4:"name";s:4:"Sami";s:6:"rating";s:1:"5";s:6:"review";s:9:"Excellent";s:9:"timestamp";s:10:"2021-02-08";}i:1;O:7:"CheckIn":4:{s:4:"name";s:4:"John";s:6:"rating";s:1:"3";s:6:"review";s:2:"OK";s:9:"timestamp";s:10:"2021-02-08";}}
+a:2:{i:0;O:7:"CheckIn":4:{s:4:"name";s:4:"Sami";s:6:"rating";s:1:"4";s:6:"review";s:7:"Alright";s:9:"timestamp";s:10:"2021-02-08";}i:1;O:7:"CheckIn":4:{s:4:"name";s:4:"John";s:6:"rating";s:1:"2";s:6:"review";s:8:"Terrible";s:9:"timestamp";s:10:"2021-02-08";}}
