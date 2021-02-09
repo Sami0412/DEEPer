@@ -13,7 +13,7 @@ if (!empty($_POST)) {
     $checkInInstance->name = $_POST["userName"];        //key names come from name attributes on form input fields
     $checkInInstance->rating = $_POST["rating"];
     $checkInInstance->review = $_POST["review"];
-    $checkInInstance->timestamp = date("Y-m-d", time());
+    $checkInInstance->timestamp = date(DATE_RSS, time());
 
     //create array for checkin data for first instance
     if (file_exists("checkins.txt")) {
