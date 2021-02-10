@@ -17,21 +17,18 @@ if (!empty($_POST)) {
 
     //create array for checkin data for first instance
     if (file_exists("checkins.txt")) {
+
         //for each new check in data remove and unserialise array from file
         $checkInsSoFar = file_get_contents("checkins.txt");
         $unserialisedCheckIns = unserialize($checkInsSoFar);
+
         //push new data into array
         array_push($unserialisedCheckIns, $checkInInstance);
+
         //reserialise and save back to file
         $serialisedArray = serialize($unserialisedCheckIns);
         file_put_contents("checkins.txt", $serialisedArray);
-        //use foreach loop on unserialised array to display each checkin on page
-        foreach ($unserialisedCheckIns as $checkInContents) {
-            echo "<h6>$checkInContents->name</h6>";
-            echo "<p>$checkInContents->rating</p>";
-            echo "<p>$checkInContents->review</p>";
-            echo "<p>$checkInContents->timestamp</p>";
-        }
+
     } else {
         $checkInsArray = [];
         //add checkin data to array
@@ -44,7 +41,7 @@ if (!empty($_POST)) {
     die();
 }
 //show recent checkins - outside
-if (file_exists("my"))
+//if (file_exists("my"))
 //unserialise and display
 
 ?>
@@ -165,7 +162,14 @@ if (file_exists("my"))
 </span>
 
 <section id="checkins" class="container">
-
+    <div class="card mx-3">
+<!--        --><?php //foreach ($unserialisedCheckIns as $checkInContents): ?>
+<!--        <h6>--><?//= $checkInContents->name ?><!-- </h6>-->
+<!--        <p>--><?//= $checkInContents->rating ?><!--</p>-->
+<!--        <p>--><?//= $checkInContents->review ?><!--</p>-->
+<!--        <p>--><?//= $checkInContents->timestamp ?><!--</p>-->
+<!--        --><?php //endforeach; ?>
+    </div>
 </section>
 
 
