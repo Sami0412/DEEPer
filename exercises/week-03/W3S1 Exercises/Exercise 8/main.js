@@ -56,6 +56,22 @@ window.addEventListener("DOMContentLoaded", function (e) {
                 console.log(response.data);
                 //result will appear as value of #result input box on page
                 $("#result").val(response.data);
+                //Use jQuery to target table row and add a click event
+                $("#table tr").click(function (e) {
+                    //this == table tr. Look for child elements of this and apply a function to each
+                    $(this).children("td").each(function (index) {
+                        if (index === 0) {
+                            //Here, this == <td> of specified index
+                            $("#a").val(this.innerText);
+                        }
+                        if (index === 1) {
+                            $("#operation").val(this.innerText);
+                        }
+                        if (index === 2) {
+                            $("#b").val(this.innerText);
+                        }
+                    })
+                })
                 //Go back into PHP script to retrieve all calcs performed so far,
                 //including the one within this post req, so table is updated immediately
                 //Use timeout to give txt file a second to appear
@@ -64,6 +80,22 @@ window.addEventListener("DOMContentLoaded", function (e) {
                         .then(function (response) {
                             //console.log(response.data);
                             $("#table").html(response.data);    //#table from HTML div
+                            //Use jQuery to target table row and add a click event
+                            $("#table tr").click(function (e) {
+                                //this == table tr. Look for child elements of this and apply a function to each
+                                $(this).children("td").each(function (index) {
+                                    if (index === 0) {
+                                        //Here, this == <td> of specified index
+                                        $("#a").val(this.innerText);
+                                    }
+                                    if (index === 1) {
+                                        $("#operation").val(this.innerText);
+                                    }
+                                    if (index === 2) {
+                                        $("#b").val(this.innerText);
+                                    }
+                                })
+                            })
                         })
                         .catch(function (error) {
                             console.log(error);
