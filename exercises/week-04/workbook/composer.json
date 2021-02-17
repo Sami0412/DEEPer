@@ -1,0 +1,17 @@
+{
+    "name": "user/workbook",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Sami Williams",
+            "email": "samiw0412@gmail.com"
+        }
+    ],
+    "require": {
+        "filp/whoops": "^2.9",
+        "symfony/var-dumper": "^5.2",
+        "vlucas/phpdotenv": "^5.3",
+        "guzzlehttp/guzzle": "^7.2",
+        "nesbot/carbon": "^2.45"
+    }
+}

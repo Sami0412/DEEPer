@@ -1,0 +1,17 @@
+.centre-div {
+    margin: 0% 10% 0% 10%;
+    width: 100%;
+    background-color: #b58ecc;
+    padding: 5% 10% 5% 10%;
+    font-weight: bolder;
+    font-size: 1.2rem;
+    border-radius: 10px;
+}
+/*
+img {
+    max-height: 100px !important;
+}
+
+.carousel-control {
+    top: 300px;
+}
