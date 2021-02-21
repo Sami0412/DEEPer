@@ -33,18 +33,20 @@ window.addEventListener("DOMContentLoaded", function() {
         var name = $("#userName").val();
         var rating = $("#rating").val();
         var review = $("#review").val();
+        var response = grecaptcha.getResponse();
 
         //Create new FormData object containing retrieved values
         var checkinData = new FormData();
         checkinData.append("userName", name);   //Creates key:value pairs
         checkinData.append("rating", rating);   //e.g. userName: 'Sami'
         checkinData.append("review", review);
+        checkinData.append("responseKey", response);
 
         //Send POST request to index.php containing the hydrated FormData object
         axios.post("index.php", checkinData)
             //response data contains success message
             .then(function (response) {
-                //Attach success message to #success div in html
+                //Attach success/failure message to #success div in html
                 $("#success").html(response.data);
                 //perform another get request to bring back & display all checkins
                 axios.get("index.php")
