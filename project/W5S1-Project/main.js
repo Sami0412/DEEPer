@@ -33,13 +33,10 @@ window.addEventListener("DOMContentLoaded", function() {
 
         //Send POST request to index.php containing the hydrated FormData object
         axios.post("index.php", checkinData)
-            //response data contains checkin data
+            //response data contains success message
             .then(function (response) {
-                //Reveal success message on submission
+                //Attach success message to #success div in html
                 $("#success").html(response.data);
-                console.log(response.data);
-                //Don't need to print out review yet as this will be done in following GET request
-                //$("#checkins").html(response.data);
             })
             .catch(function (error) {
                 console.log(error);
