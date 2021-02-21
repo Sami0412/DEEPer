@@ -32,3 +32,33 @@ if (!empty($_POST)) {
     //Return to main.js
     die();
 }
+
+class CheckIn
+{
+    public string $user_name;
+    public int $rating;
+    public string $review;
+    public string $submitted;
+}
+
+//create array of existing checkin classes
+$stmt = $dbh->prepare(
+    'SELECT user_name, rating, review, submitted FROM checkins'
+);
+
+$stmt->execute();
+
+$checkIns = $stmt->fetchAll(PDO::FETCH_CLASS, CheckIn::class);
+//Reverse array so newest checkin appears first
+$checkIns = array_reverse($checkIns);
+
+//iterate over array to produce a display div for each checkin
+foreach($checkIns as $checkIn) {
+    echo "<div class='container border p-4 mb-4'>";
+    echo "<div class='row'>";
+    echo "<p class='col-2'><b>$checkIn->user_name</b></p><p class='col-10'><b>$checkIn->rating / 5</b></pclass>";
+    echo "</div>";
+    echo "<p>$checkIn->review</p>";
+    echo "<p>$checkIn->submitted</p>";
+    echo "</div>";
+}

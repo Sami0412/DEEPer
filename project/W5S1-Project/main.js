@@ -1,5 +1,14 @@
 //Ensure JS runs only after page load
 window.addEventListener("DOMContentLoaded", function() {
+    //Get existing reviews on page load
+    axios.get('index.php')
+        .then(function (response) {
+            //display checkins within #checkins html div
+            $('#checkins').html(response.data)
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
 
     //Add submit event listener to form
     $("#myForm").on("submit", function (e) {
@@ -37,6 +46,15 @@ window.addEventListener("DOMContentLoaded", function() {
             .then(function (response) {
                 //Attach success message to #success div in html
                 $("#success").html(response.data);
+                //perform another get request to bring back & display all checkins
+                axios.get("index.php")
+                    .then(function (response) {
+                        //Assign all reviews to #checkins HTML div
+                        $("#checkins").html(response.data);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
             })
             .catch(function (error) {
                 console.log(error);
