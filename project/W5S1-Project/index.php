@@ -30,13 +30,14 @@ if (!empty($_POST)) {
         ]);
 
         //return data to main.js, in this case a bootstrap success message
-        echo '<div id="successMsg" class="alert alert-success alert-dismissible fade show col-11 mt-3 ml-5" role="alert">';
+        echo '<div class="alert alert-success alert-dismissible fade show" role="alert">';
         echo '<strong>Success!</strong> Your review has been saved.';
         echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close">';
         echo '<span aria-hidden="true">&times;</span></button></div>';
 
     }else{
-        echo '<div class="alert alert-danger" role="alert">ReCAPTCHA failed. Please resubmit.';
+        echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">';
+        echo '<strong>Verification failed</strong> Please try again.';
         echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close">';
         echo '<span aria-hidden="true">&times;</span></button></div>';
     }
