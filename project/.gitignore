@@ -37,3 +37,4 @@ Temporary Items
 ### Composer template
 composer.phar
 /vendor/
+.env
