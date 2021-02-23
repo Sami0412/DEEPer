@@ -1,5 +1,5 @@
 //Ensure JS runs only after page load
-window.addEventListener("DOMContentLoaded", function() {
+$(document).ready(function() {
     //Get existing reviews on page load
     axios.get('index.php')
         .then(function (response) {

@@ -24,8 +24,8 @@ $logger->pushHandler(
 );
 
 //set up db connection
-$username = "root";
-$password = "root";
+$username = $_ENV['username'];
+$password = $_ENV['password'];
 
 try {
     $dbh = new PDO(

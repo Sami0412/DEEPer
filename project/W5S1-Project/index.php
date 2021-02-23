@@ -6,12 +6,12 @@ require_once 'setup.php';
 //Only runs on form submission (i.e when $_POST contains data)
 if (!empty($_POST)) {
 
-    $secretKey = "6LfWvWEaAAAAALtVZzpk8TlPbz5EJN7d3VbBUDow";
+    $secretKey = $_ENV['secretKey'];
     $responseKey = $_POST['responseKey'];
     $url = "https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$responseKey";
     $response = file_get_contents($url);
     $response = json_decode($response);
-    if ($response->success){
+    if ($response->success) {
         //save data from POST to variables
         $name = $_POST["userName"];
         $rating = $_POST["rating"];
@@ -35,7 +35,7 @@ if (!empty($_POST)) {
         echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close">';
         echo '<span aria-hidden="true">&times;</span></button></div>';
 
-    }else{
+    } else {
         echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">';
         echo '<strong>Verification failed</strong> Please try again.';
         echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close">';
@@ -65,10 +65,10 @@ $checkIns = $stmt->fetchAll(PDO::FETCH_CLASS, CheckIn::class);
 $checkIns = array_reverse($checkIns);
 
 //iterate over array to produce a display div for each checkin
-foreach($checkIns as $checkIn) {
+foreach ($checkIns as $checkIn) {
     echo "<div class='container border p-4 mb-4'>";
     echo "<div class='row'>";
-    echo "<p class='col-2'><b>$checkIn->user_name</b></p><p class='col-10'><b>$checkIn->rating / 5</b></pclass>";
+    echo "<p class='col-2'><b>$checkIn->user_name</b></p><p class='col-10'><b>$checkIn->rating / 5</b></p>";
     echo "</div>";
     echo "<p>$checkIn->review</p>";
     echo "<p>$checkIn->submitted</p>";
