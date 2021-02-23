@@ -1,5 +1,5 @@
 .centre-div {
-    margin: 0% 10% 0% 10%;
+    margin: auto;
     width: 100%;
     background-color: #b58ecc;
     padding: 5% 10% 5% 10%;
@@ -7,11 +7,8 @@
     font-size: 1.2rem;
     border-radius: 10px;
 }
-/*
-img {
-    max-height: 100px !important;
-}
 
-.carousel-control {
-    top: 300px;
+img {
+    max-height: 500px;
+    object-fit: cover;
 }
