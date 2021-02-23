@@ -106,9 +106,11 @@ if (!empty($_FILES)) {
                 $images = array_diff(scandir('uploads/', SCANDIR_SORT_NONE), array('..', '.'));
                 //assign first element (first file in uploads) to variable as one needs to be 'active' in carousel
                 $head = $images[0];
-                echo "<div class='carousel-item active'>";
-                echo "<img src='uploads/$head' class='d-block w-100'>";
-                echo "</div>";
+                ?>
+                <div class='carousel-item active'>
+                <img src='uploads/<?= $head?>' class='d-block w-100'>
+                </div>
+                <?php
                 //assign rest of array to another variable
                 function getTail($i) {
                     return $i > 0;
