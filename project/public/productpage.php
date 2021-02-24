@@ -96,9 +96,10 @@ require_once '../src/index.php';
         <div class="col-6">
             <b>Average Rating</b>
         </div>
-        <div class="col-6">
-            <?= $product->avg_rating ?>/5
+        <div class="star-rating">
+            <div style="width:<?= $product->avg_rating * 20; ?>%;"></div>
         </div>
+
     </div>
     <hr>
     <div class="row">
@@ -121,10 +122,10 @@ require_once '../src/index.php';
     <?php
     $checkIns = $product->checkins;
     foreach ($checkIns as $checkIn): ?>
-        <div class='container border p-4 mb-4'>
-            <div class='row'>
-                <p class='col-2'><b><?= $checkIn->user_name ?></b></p>
-                <p class='col-10'><b><?= $checkIn->rating ?> / 5</b></p>
+        <div class="container border p-4 mb-4">
+            <div class="row">
+                <h3 class="col-2"><?= $checkIn->user_name ?></h3>
+                <div class="star-rating"><div style="width:<?= $checkIn->rating * 20; ?>%;"></div></div>
             </div>
             <p><?= $checkIn->review ?></p>
             <p><?= $checkIn->submitted ?></p>
