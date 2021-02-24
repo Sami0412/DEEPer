@@ -148,4 +148,4 @@ tags
 # Persistent undo
 [._]*.un~
 
-project/.env
+**/.env

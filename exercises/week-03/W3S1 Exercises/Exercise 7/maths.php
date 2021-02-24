@@ -52,7 +52,7 @@ if (!empty($_POST)) {
 <!--The following is fetched back with 1st GET req in main.js-->
 
 <!--Render head of table-->
-<table class="table table-striped">
+<table class="table table-striped" id="calcsTable">
     <thead>
         <tr>
             <th scope="col">Timestamp</th>

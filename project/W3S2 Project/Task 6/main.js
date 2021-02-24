@@ -1,6 +1,7 @@
 //Ensure JS runs only after page load
 window.addEventListener("DOMContentLoaded", function() {
-
+    //Hide success message until something submitted
+    $("#successMsg").hide();
     //1st GET request on page load to display any existing reviews
     axios.get("index.php")
         .then(function (response) {
@@ -23,7 +24,6 @@ window.addEventListener("DOMContentLoaded", function() {
         $('#checkinModal').on('hidden.bs.modal', function () {
             $(this).find('#myForm').trigger('reset');
         })
-
     });
 
     //Runs on submission
@@ -46,6 +46,8 @@ window.addEventListener("DOMContentLoaded", function() {
         axios.post("index.php", checkinData)
             //response data contains checkin data
             .then(function (response) {
+                //Reveal success message on submission
+                $("#successMsg").show();
                 //Don't need to print out review yet as this will be done in following GET request
                 //$("#checkins").html(response.data);
                 axios.get("index.php")
