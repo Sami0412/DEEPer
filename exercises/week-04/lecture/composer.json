@@ -8,5 +8,15 @@
             "email": "samiw0412@gmail.com"
         }
     ],
-    "require": {}
+    "require-dev": {
+        "roave/security-advisories": "dev-master"
+    },
+    "require": {
+        "filp/whoops": "^2.9",
+        "symfony/var-dumper": "^5.2",
+        "vlucas/phpdotenv": "^5.3",
+        "monolog/monolog": "^2.2",
+        "guzzlehttp/guzzle": "^7.2",
+        "nesbot/carbon": "^2.45"
+    }
 }

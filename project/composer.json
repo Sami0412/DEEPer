@@ -13,7 +13,12 @@
             "App\\": "src"
         }
     },
-    "require": {},
+    "require": {
+        "filp/whoops": "^2.9",
+        "google/recaptcha": "^1.2",
+        "monolog/monolog": "^2.2",
+        "vlucas/phpdotenv": "^5.3"
+    },
     "require-dev": {
         "roave/security-advisories": "dev-master",
         "symfony/var-dumper": "^5.1"

@@ -1,0 +1,3 @@
+[2021-02-14T16:37:25.997017+00:00] application.WARNING: Warning messages may not need immediate attention [] []
+[2021-02-14T16:38:48.055773+00:00] application.WARNING: Warning messages may not need immediate attention [] []
+[2021-02-14T16:38:48.071816+00:00] application.ALERT: This is an alert - something more critical has happened [] []

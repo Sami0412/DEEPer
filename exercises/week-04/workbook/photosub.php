@@ -12,6 +12,7 @@ class Photo
     public $picture;
     public $submitted;
 }
+
 //Only runs on form submission
 if (!empty($_POST)) {
     //Hydrate Photo class with form values
@@ -34,7 +35,7 @@ if (!empty($_FILES)) {
            //display error bootstrap alert
             $responseMsg = '<div class="alert alert-warning" role="alert">An error has occurred, please try again</div>';
         } else {
-            //Create path name e.g. uploads/cat.jpg
+            //Create path name e.g. 'uploads/cat.jpg
             $targetPath = 'uploads/' . $file['name'];
             //Replace temporary file path with newly created path
             if (!move_uploaded_file(
@@ -45,7 +46,7 @@ if (!empty($_FILES)) {
             }
             //Add new file path into photo class instance
             $submission->picture = $targetPath;
-            //Serialise and store the hydrated class instance using timestamp as name
+            //Serialise & store the hydrated class instance using timestamp as name
             $serialisedSubmission = serialize($submission);
             file_put_contents("$submission->submitted" . ".txt", $serialisedSubmission);
 
@@ -90,9 +91,9 @@ if (!empty($_FILES)) {
                     <input type="file" name="photo" id="photo" class="form-control">
                 </div>
                 <button type="submit" class="btn btn-info btn-lg ml-3">Submit</button>
-                <?php if (isset($responseMsg)) {
+                <?php if (isset($responseMsg)){
                     echo $responseMsg;
-                } ?>
+                }?>
             </div>
         </form>
     </div>
@@ -107,7 +108,7 @@ if (!empty($_FILES)) {
                 $head = $images[0];
                 ?>
                 <div class='carousel-item active'>
-                <img src='uploads/<?= $head ?>' class='d-block w-100'>
+                <img src='uploads/<?= $head?>' class='d-block w-100'>
                 </div>
                 <?php
                 //assign rest of array to another variable
