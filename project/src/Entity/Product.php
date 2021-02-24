@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Entity;
+
 class Product
 {
     public int $id;

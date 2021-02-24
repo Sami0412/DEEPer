@@ -23,8 +23,8 @@ $logger->pushHandler(
     )
 );
 
-require_once 'classes/Product.php';
-require_once 'classes/Checkin.php';
+require_once 'Entity/Product.php';
+require_once 'Entity/Checkin.php';
 
 //set up database connection
 try {

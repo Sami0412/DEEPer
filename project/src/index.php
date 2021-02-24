@@ -1,5 +1,7 @@
 <?php
 
+use App\Entity\Product;
+use App\Entity\CheckIn;
 //set up database connection (as well as libraries)
 require_once 'setup.php';
 
