@@ -1,7 +1,7 @@
 //Ensure JS runs only after page load
 $(document).ready(function() {
     //Get existing reviews on page load
-    axios.get('index.php')
+    axios.get('../src/index.php')
         .then(function (response) {
             //display checkins within #checkins html div
             $('#checkins').html(response.data)
@@ -43,13 +43,13 @@ $(document).ready(function() {
         checkinData.append("responseKey", response);
 
         //Send POST request to index.php containing the hydrated FormData object
-        axios.post("index.php", checkinData)
+        axios.post("../src/index.php", checkinData)
             //response data contains success message
             .then(function (response) {
                 //Attach success/failure message to #success div in html
                 $("#success").html(response.data);
                 //perform another get request to bring back & display all checkins
-                axios.get("index.php")
+                axios.get("../src/index.php")
                     .then(function (response) {
                         //Assign all reviews to #checkins HTML div
                         $("#checkins").html(response.data);
