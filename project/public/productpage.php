@@ -119,9 +119,7 @@ require_once '../src/index.php';
 <h2>Recent Checkins</h2>
 
 <section id="checkins">
-    <?php
-    $checkIns = $product->checkins;
-    foreach ($checkIns as $checkIn): ?>
+    <?php foreach ($product->getCheckIns() as $checkIn): ?>
         <div class="container border p-4 mb-4">
             <div class="row">
                 <h3 class="col-2"><?= $checkIn->user_name ?></h3>

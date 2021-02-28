@@ -74,5 +74,8 @@ $stmt->execute([
 ]);
 //Use fetchall to obtain an array of hydrated Entity (one for each row) and save array to variable
 $checkIns = $stmt->fetchAll(PDO::FETCH_CLASS, CheckIn::class);
-//Save array into the checkins property of the product class
-$product->checkins = $checkIns;
+//Save array into the private checkins property of the product class using the addCheckin accessor function
+//Can't just pass in the array, need to loop over
+foreach ($checkIns as $checkIn) {
+    $product->addCheckIn($checkIn);
+}
