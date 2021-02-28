@@ -122,11 +122,11 @@ require_once '../src/index.php';
     <?php foreach ($product->getCheckIns() as $checkIn): ?>
         <div class="container border p-4 mb-4">
             <div class="row">
-                <h3 class="col-2"><?= $checkIn->user_name ?></h3>
+                <h3 class="col-2"><?= $checkIn->name ?></h3>
                 <div class="star-rating"><div style="width:<?= $checkIn->rating * 20; ?>%;"></div></div>
             </div>
             <p><?= $checkIn->review ?></p>
-            <p><?= $checkIn->submitted ?></p>
+            <p><?= $checkIn->posted ?></p>
         </div>
         <?php endforeach; ?>
 </section>
