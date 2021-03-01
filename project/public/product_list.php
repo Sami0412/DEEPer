@@ -1,8 +1,8 @@
 <?php
 
-require_once '../src/setup.php';
-use App\Entity\Product;
 use App\Hydrator\EntityHydrator;
+
+require_once '../src/setup.php';
 
 $stmt = $dbh->prepare(
     'SELECT id, title, description, image_path FROM products'
@@ -12,10 +12,9 @@ $stmt->execute();
 $productsData = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $hydrator = new EntityHydrator();
-$productsList = [];
-foreach ($productsData as $individualItem) {
-     $productInfo= $hydrator->hydrateProduct($individualItem);
-     array_push($productsList, $productInfo);
+
+foreach ($productsData as $row) {
+    $productsList[] = $hydrator->hydrateProduct($row);
 }
 
 ?>
