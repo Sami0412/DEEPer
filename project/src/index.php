@@ -1,7 +1,5 @@
 <?php
 
-use App\Entity\Product;
-use App\Entity\CheckIn;
 use App\Hydrator\EntityHydrator;
 
 //set up database connection (as well as libraries)

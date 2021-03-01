@@ -24,14 +24,11 @@ $logger->pushHandler(
 );
 
 //set up db connection
-$username = $_ENV['DBUSERNAME'];
-$password = $_ENV['DBPASSWD'];
-
 try {
     $dbh = new PDO(
         "mysql:dbname=myproject;host=mysql",
-        $username,
-        $password
+        $_ENV['DBUSERNAME'],
+        $_ENV['DBPASSWD']
     );
 
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
