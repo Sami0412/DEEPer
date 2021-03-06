@@ -1,5 +1,7 @@
 <?php
 
+use App\Hydrator\EntityHydrator;
+
 //set up database connection (as well as libraries)
 require_once 'setup.php';
 
@@ -50,27 +52,22 @@ $productId = $_GET['productId'];    //Will just insert this into URL for now
 
 //Database connection set up in setup.php
 $stmt = $dbh->prepare(
-    'SELECT products.title, products.description, products.image_path, AVG(IFNULL(checkins.rating, 0)) AS avg_rating
-    FROM products
-    LEFT JOIN checkins ON checkins.product_id = products.id
-    WHERE products.id = :id
-    GROUP BY products.id'
+    'SELECT
+    p.id AS product_id, p.title, p.description, p.image_path,
+    c.id, c.user_name, c.rating, c.review, c.submitted,
+    (
+        SELECT AVG(IFNULL(checkins.rating, 0)) FROM checkins WHERE product_id = p.id
+    ) AS avg_rating
+    FROM products AS p
+    LEFT JOIN checkins AS c ON c.product_id = p.id
+    WHERE p.id = :id'
 );
 //Insert product id from URL & execute query
 $stmt->execute([
     'id' => $productId
 ]);
-//Product class made available in setup.php by requiring the file product.php
-$product = $stmt->fetchObject(Product::class);
+//Retrieve array
+$productAndCheckInData = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-//Display checkins against that product
-$stmt = $dbh->prepare(
-    'SELECT * FROM checkins WHERE product_id = :id'
-);
-$stmt->execute([
-    'id' => $productId
-]);
-//Use fetchall to obtain an array of hydrated Entity (one for each row) and save array to variable
-$checkIns = $stmt->fetchAll(PDO::FETCH_CLASS, CheckIn::class);
-//Save array into the checkins property of the product class
-$product->checkins = $checkIns;
+$hydrator = new EntityHydrator();
+$product = $hydrator->hydrateProductWithCheckIns($productAndCheckInData);

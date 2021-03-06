@@ -53,7 +53,7 @@ class CheckIn
     public string $submitted;
 }
 
-//create array of existing checkin classes
+//create array of existing checkin Entity
 $stmt = $dbh->prepare(
     'SELECT user_name, rating, review, submitted FROM checkins'
 );

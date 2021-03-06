@@ -1,7 +1,7 @@
 <?php
 
 //Makes all libraries available
-require_once 'vendor/autoload.php';
+require_once '../vendor/autoload.php';
 
 //Set up Whoops: displays errors
 $whoops = new \Whoops\Run();
@@ -23,13 +23,10 @@ $logger->pushHandler(
     )
 );
 
-require_once 'classes/Product.php';
-require_once 'classes/Checkin.php';
-
-//set up database connection
+//set up db connection
 try {
     $dbh = new PDO(
-        'mysql:host=mysql;dbname=project',
+        "mysql:dbname=myproject;host=mysql",
         $_ENV['DBUSERNAME'],
         $_ENV['DBPASSWD']
     );
@@ -37,6 +34,8 @@ try {
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 } catch (PDOException $e) {
-    // We could log this!
-    die('Unable to establish a database connection');
+    die("Database connection failed");
 }
+
+
+
