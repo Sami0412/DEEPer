@@ -4,18 +4,29 @@ use App\Hydrator\EntityHydrator;
 
 require_once '../src/setup.php';
 
+//Save search term to variable
+$searchTerm = "";
+if (isset($_POST['search'])) {
+    $searchTerm = $_POST['search'];
+}
+
+//Display all products OR searched products from database on page:
 $stmt = $dbh->prepare(
-    'SELECT id, title, description, image_path FROM products'
+    'SELECT id, title, description, image_path FROM products WHERE title LIKE :searchTerm'
 );
 
-$stmt->execute();
+//Works even when no search term entered - passes %% into stmt which searches for everything
+$stmt->execute([
+        'searchTerm' => '%' . $searchTerm . '%'
+]);
 $productsData = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $hydrator = new EntityHydrator();
-
 foreach ($productsData as $row) {
     $productsList[] = $hydrator->hydrateProduct($row);
 }
+
+
 
 ?>
 <!doctype html>
@@ -30,10 +41,19 @@ foreach ($productsData as $row) {
 </head>
 <body class="container">
 <h1>Beer Selection</h1>
-
+<form method="post">
+    <div class="form-group">
+        <label for="search">Search:</label>
+        <input type="text" id="search" name="search" class="form-control" value="<?= $searchTerm ?>">
+        <small class="form-text text-muted">Search for beer style, brewery, name etc</small>
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
 
 <div class="row my-4">
-    <?php foreach ($productsList as $product): ?>
+    <?php if (empty($productsData)): ?>
+        <h6>No products found</h6>
+    <?php else: foreach ($productsList as $product): ?>
     <a class="col-lg-4 col-md-6 col-sm-6 col-12" href="productpage.php?productId=<?= $product->id; ?>">
         <div class="beer-pic">
             <img src="<?= '../' . $product->image_path; ?>">
@@ -42,7 +62,7 @@ foreach ($productsData as $row) {
             </div>
         </div>
     </a>
-    <?php endforeach; ?>
+    <?php endforeach; endif; ?>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
