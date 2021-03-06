@@ -30,13 +30,15 @@ foreach ($productsData as $row) {
 </head>
 <body class="container">
 <h1>Beer Selection</h1>
+
+
 <div class="row my-4">
     <?php foreach ($productsList as $product): ?>
-    <a class="col-4" href="productpage.php?productId=<?= $product->id; ?>">
+    <a class="col-lg-4 col-md-6 col-sm-6 col-12" href="productpage.php?productId=<?= $product->id; ?>">
         <div class="beer-pic">
             <img src="<?= '../' . $product->image_path; ?>">
             <div class="row">
-                <h6><?= $product->title; ?></h6>
+                <h6 class="col-12"><?= $product->title; ?></h6>
             </div>
         </div>
     </a>
