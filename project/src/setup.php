@@ -1,6 +1,8 @@
 <?php
 
 //Makes all libraries available
+use App\DataProvider\DatabaseProvider;
+
 require_once '../vendor/autoload.php';
 
 //Set up Whoops: displays errors
@@ -23,19 +25,7 @@ $logger->pushHandler(
     )
 );
 
-//set up db connection
-try {
-    $dbh = new PDO(
-        "mysql:dbname=myproject;host=mysql",
-        $_ENV['DBUSERNAME'],
-        $_ENV['DBPASSWD']
-    );
-
-    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-} catch (PDOException $e) {
-    die("Database connection failed");
-}
+$dbProvider = new DatabaseProvider();
 
 
 
