@@ -25,21 +25,25 @@ $hydrator = new EntityHydrator();
 foreach ($productsData as $row) {
     $productsList[] = $hydrator->hydrateProduct($row);
 }
-
-
-
 ?>
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <?php include 'template_parts/header_includes.php' ?>
     <link rel="stylesheet" href="../src/beerlist.css">
     <title>Craft Beer Selection</title>
 </head>
 <body class="container">
+<img class="banner" src="../uploads/Beer_banner.jpeg">
+
+<?php include 'template_parts/navigation.php'?>
+
+<div class="intro">
+    <p class="">Tired of the same old beers? Looking for something more exciting? Peruse our selection of craft ales from independent breweries and try something different!<br>
+    Tried a new beer recently that you think deserves some attention? Search for it on our website and leave a review!<br>
+    If your beer is not listed, you can add it to the site using the menu above!</p>
+    <p class="tagline"> Say NO to boring lagers! It's time to <b>RAISE THE BEER</b>!</p>
+    </div>
 <h1>Beer Selection</h1>
 <form method="post">
     <div class="form-group">

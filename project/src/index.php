@@ -48,7 +48,7 @@ if (!empty($_POST)) {
 }
 
 
-$productId = $_GET['productId'];    //Will just insert this into URL for now
+$productId = $_GET['productId'];    //Comes from product selection
 
 //Database connection set up in setup.php
 $stmt = $dbh->prepare(
