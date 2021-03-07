@@ -56,3 +56,8 @@ body {
     font-weight: bolder;
     font-size: large;
 }
+
+.card {
+    color: black;
+    margin-bottom: 10%;
+}

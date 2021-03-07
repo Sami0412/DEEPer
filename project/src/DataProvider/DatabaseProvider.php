@@ -30,7 +30,7 @@ class DatabaseProvider
     public function getProducts(string $searchTerm): array
     {
         $stmt = $this->dbh->prepare(
-            'SELECT id, title, description, image_path,
+            'SELECT id, title, description, image_path, abv, beer_style, brewery,
     (
         SELECT AVG(IFNULL(checkins.rating, 0)) FROM checkins WHERE product_id = p.id
     ) AS avg_rating
@@ -48,7 +48,7 @@ class DatabaseProvider
     {
         $stmt = $this->dbh->prepare(
             'SELECT
-            p.id AS product_id, p.title, p.description, p.image_path,
+            p.id AS product_id, p.title, p.description, p.image_path, p.abv, p.beer_style, p.brewery,
             c.id, c.user_name, c.rating, c.review, c.submitted,
             (
                 SELECT AVG(IFNULL(checkins.rating, 0)) FROM checkins WHERE product_id = p.id

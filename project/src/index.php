@@ -1,7 +1,5 @@
 <?php
 
-use App\Hydrator\EntityHydrator;
-
 //set up database connection (as well as libraries)
 require_once 'setup.php';
 

@@ -13,6 +13,9 @@ class EntityHydrator
         $product->id = $data['id'];
         $product->title = $data['title'];
         $product->description = $data['description'];
+        $product->abv = $data['abv'];
+        $product->beerStyle = $data['beerStyle'];
+        $product->brewery = $data['brewery'];
         $product->image_path = $data['image_path'];
         $product->avg_rating = $data['avg_rating'];
 
@@ -41,6 +44,9 @@ class EntityHydrator
             'id' => $data[0]['product_id'],
             'title' => $data[0]['title'],
             'description' => $data[0]['description'],
+            'abv' => $data[0]['abv'],
+            'beerStyle' => $data[0]['beer_style'],
+            'brewery' => $data[0]['brewery'],
             'image_path' => $data[0]['image_path'],
             'avg_rating' => $data[0]['avg_rating']
         ];
@@ -54,5 +60,10 @@ class EntityHydrator
         }
 
         return $product;
+    }
+
+    public function hydrateUser(array $data): User
+    {
+
     }
 }

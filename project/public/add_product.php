@@ -1,4 +1,7 @@
 <?php
+
+require_once '../src/setup.php';
+
 if (!empty($_POST['title']) && !empty($_POST['description'])) {
     $formData = [
         'title' => strip_tags($_POST['title']),
@@ -10,8 +13,11 @@ if (!empty($_POST['title']) && !empty($_POST['description'])) {
     $formProduct->description = $formData['description'];
 
     //Create product
-
+    $product = $dbProvider->createProduct($formProduct);
+    //$logger->info("Product created: " . $product->title);
+    //Send user to newly created product page
     header('Location: productpage.php?productId=' . $product->id);
+    exit;
 }
 //deal with empty submissiom
 ?>

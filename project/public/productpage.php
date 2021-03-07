@@ -102,15 +102,21 @@ require_once '../src/index.php';
     <hr>
     <div class="row">
         <div class="col-6">
-            <b>Another Statistic</b>
+            <b>ABV</b>
         </div>
-        <div class="col-6">78/100</div>
+        <div class="col-6"><?= $product->abv; ?>%</div>
     </div>
     <hr>
     <div class="row">
         <div class="col-6">
-            <b>Yet Another Statistic</b></div>
-        <div class="col-6">Something</div>
+            <b>Beer Style</b></div>
+        <div class="col-6"><?= $product->beerStyle; ?></div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-6">
+            <b>Brewery</b></div>
+        <div class="col-6"><?= $product->brewery; ?></div>
     </div>
 </section>
 

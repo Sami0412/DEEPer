@@ -1,6 +1,5 @@
 <?php
 
-//Makes all libraries available
 use App\DataProvider\DatabaseProvider;
 
 require_once '../vendor/autoload.php';
