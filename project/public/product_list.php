@@ -12,7 +12,11 @@ if (isset($_POST['search'])) {
 
 //Display all products OR searched products from database on page:
 $stmt = $dbh->prepare(
-    'SELECT id, title, description, image_path FROM products WHERE title LIKE :searchTerm'
+    'SELECT id, title, description, image_path,
+    (
+        SELECT AVG(IFNULL(checkins.rating, 0)) FROM checkins WHERE product_id = p.id
+    ) AS avg_rating
+    FROM products p WHERE title LIKE :searchTerm'
 );
 
 //Works even when no search term entered - passes %% into stmt which searches for everything

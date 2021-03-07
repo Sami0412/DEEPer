@@ -4,7 +4,7 @@ namespace App\Entity;
 
 class CheckIn
 {
-    public int $id;
+    public ?int $id;
     public int $product_id;     //make sure properties exactly match column names in table!
     public string $name;
     public int $rating;

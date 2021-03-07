@@ -8,7 +8,7 @@ class Product
     public string $title;
     public string $description;
     public string $image_path;
-    public float $avg_rating;
+    public ?float $avg_rating;      //? allows null value
     /** @var CheckIn[] */       //type hint - knows to expect an array of checkins
     //private array can only be accessed via public accessor functions
     private array $checkIns = [];
