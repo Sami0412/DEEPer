@@ -11,6 +11,15 @@ body {
     color: #e7ecef;
 }
 
+nav {
+    font-family: northhead;
+    font-size: 2rem;
+}
+
+.navbar-brand {
+    font-size: 3rem;
+}
+
 .banner {
     width: 100%;
 }

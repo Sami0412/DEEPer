@@ -8,9 +8,11 @@ require_once '../src/index.php';
     <link rel="stylesheet" href="../src/index.css">
     <title>Craft Beer Ratings</title>
 </head>
-<body class="container p-2">
+<body class="container">
+<img class="banner" src="../uploads/Beer_banner.jpeg">
 <?php include 'template_parts/navigation.php'?>
-<section id="intro" class="border p-2">
+<h1><?= $product->title ?></h1>
+<section id="intro">
     <div id="intro-row" class="row">
         <div id="images" class="col-12 col-lg-6">
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -41,11 +43,10 @@ require_once '../src/index.php';
             </div>
         </div>
         <article class="col-lg-6">
-            <h1><?= $product->title ?></h1>
-            <p><?= $product->description ?></p>
+            <p id="description"><?= $product->description ?></p>
             <div class="row">
                 <div class="col">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#checkinModal">Check In</button>
+                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#checkinModal">Review</button>
                 </div>
                 <div id="success" class="justify-content-center mr-5 mb-n4 mt-n2"></div>
             </div>
@@ -88,7 +89,7 @@ require_once '../src/index.php';
 
 <h2>Additional Information</h2>
 
-<section id="additional-info" class="border p-4">
+<section id="additional-info">
     <hr>
     <div class="row">
         <div class="col-6">
@@ -113,7 +114,7 @@ require_once '../src/index.php';
         <div class="col-6"><?= $product->beerStyle; ?></div>
     </div>
     <hr>
-    <div class="row">
+    <div class="row mb-4">
         <div class="col-6">
             <b>Brewery</b></div>
         <div class="col-6"><?= $product->brewery; ?></div>
@@ -124,9 +125,9 @@ require_once '../src/index.php';
 
 <section id="checkins">
     <?php if (!count($product->getCheckIns())) : ?>
-    <div class="border p-4 mb-4">No reviews yet</div>
+    <div class="p-4 mb-4">No reviews yet</div>
     <?php else: foreach ($product->getCheckIns() as $checkIn): ?>
-        <div class="border p-4 mb-4">
+        <div class="border border-warning p-4 my-4">
             <div class="row">
                 <h3 class="col-2"><?= $checkIn->name ?></h3>
                 <div class="star-rating"><div style="width:<?= $checkIn->rating * 20; ?>%;"></div></div>
