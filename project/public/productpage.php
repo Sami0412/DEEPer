@@ -4,15 +4,15 @@ require_once '../src/index.php';
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <?php include 'template_parts/header_includes.php' ?>
     <link rel="stylesheet" href="../src/index.css">
     <title>Craft Beer Ratings</title>
 </head>
-<body class="container p-2">
-<section id="intro" class="border p-2">
+<body class="container">
+<img class="banner" src="../uploads/Beer_banner.jpeg">
+<?php include 'template_parts/navigation.php'?>
+<h1><?= $product->title ?></h1>
+<section id="intro">
     <div id="intro-row" class="row">
         <div id="images" class="col-12 col-lg-6">
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -43,11 +43,10 @@ require_once '../src/index.php';
             </div>
         </div>
         <article class="col-lg-6">
-            <h1><?= $product->title ?></h1>
-            <p><?= $product->description ?></p>
+            <p id="description"><?= $product->description ?></p>
             <div class="row">
                 <div class="col">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#checkinModal">Check In</button>
+                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#checkinModal">Review</button>
                 </div>
                 <div id="success" class="justify-content-center mr-5 mb-n4 mt-n2"></div>
             </div>
@@ -90,7 +89,7 @@ require_once '../src/index.php';
 
 <h2>Additional Information</h2>
 
-<section id="additional-info" class="border p-4">
+<section id="additional-info">
     <hr>
     <div class="row">
         <div class="col-6">
@@ -104,23 +103,31 @@ require_once '../src/index.php';
     <hr>
     <div class="row">
         <div class="col-6">
-            <b>Another Statistic</b>
+            <b>ABV</b>
         </div>
-        <div class="col-6">78/100</div>
+        <div class="col-6"><?= $product->abv; ?>%</div>
     </div>
     <hr>
     <div class="row">
         <div class="col-6">
-            <b>Yet Another Statistic</b></div>
-        <div class="col-6">Something</div>
+            <b>Beer Style</b></div>
+        <div class="col-6"><?= $product->beerStyle; ?></div>
+    </div>
+    <hr>
+    <div class="row mb-4">
+        <div class="col-6">
+            <b>Brewery</b></div>
+        <div class="col-6"><?= $product->brewery; ?></div>
     </div>
 </section>
 
-<h2>Recent Checkins</h2>
+<h2>Recent Reviews</h2>
 
 <section id="checkins">
-    <?php foreach ($product->getCheckIns() as $checkIn): ?>
-        <div class="container border p-4 mb-4">
+    <?php if (!count($product->getCheckIns())) : ?>
+    <div class="p-4 mb-4">No reviews yet</div>
+    <?php else: foreach ($product->getCheckIns() as $checkIn): ?>
+        <div class="border border-warning p-4 my-4">
             <div class="row">
                 <h3 class="col-2"><?= $checkIn->name ?></h3>
                 <div class="star-rating"><div style="width:<?= $checkIn->rating * 20; ?>%;"></div></div>
@@ -128,13 +135,10 @@ require_once '../src/index.php';
             <p><?= $checkIn->review ?></p>
             <p><?= $checkIn->posted ?></p>
         </div>
-        <?php endforeach; ?>
+        <?php endforeach; endif; ?>
 </section>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous"></script>
+<?php include 'template_parts/footer_includes.php'?>
 <script src="../src/main.js"></script>
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </body>

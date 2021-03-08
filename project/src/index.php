@@ -1,7 +1,5 @@
 <?php
 
-use App\Hydrator\EntityHydrator;
-
 //set up database connection (as well as libraries)
 require_once 'setup.php';
 
@@ -47,27 +45,5 @@ if (!empty($_POST)) {
     die();
 }
 
-
-$productId = $_GET['productId'];    //Will just insert this into URL for now
-
-//Database connection set up in setup.php
-$stmt = $dbh->prepare(
-    'SELECT
-    p.id AS product_id, p.title, p.description, p.image_path,
-    c.id, c.user_name, c.rating, c.review, c.submitted,
-    (
-        SELECT AVG(IFNULL(checkins.rating, 0)) FROM checkins WHERE product_id = p.id
-    ) AS avg_rating
-    FROM products AS p
-    LEFT JOIN checkins AS c ON c.product_id = p.id
-    WHERE p.id = :id'
-);
-//Insert product id from URL & execute query
-$stmt->execute([
-    'id' => $productId
-]);
-//Retrieve array
-$productAndCheckInData = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-$hydrator = new EntityHydrator();
-$product = $hydrator->hydrateProductWithCheckIns($productAndCheckInData);
+$productId = $_GET['productId'];
+$product = $dbProvider->getProduct($productId);
