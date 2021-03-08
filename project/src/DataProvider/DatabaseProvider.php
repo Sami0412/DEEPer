@@ -31,10 +31,10 @@ class DatabaseProvider
     {
         $stmt = $this->dbh->prepare(
             'SELECT id, title, description, image_path, abv, beer_style, brewery,
-    (
-        SELECT AVG(IFNULL(checkins.rating, 0)) FROM checkins WHERE product_id = p.id
-    ) AS avg_rating
-    FROM products p WHERE title LIKE :searchTerm'
+            (
+                SELECT AVG(IFNULL(checkins.rating, 0)) FROM checkins WHERE product_id = p.id
+            ) AS avg_rating
+            FROM products p WHERE title LIKE :searchTerm'
         );
 
 //Works even when no search term entered - passes %% into stmt which searches for everything
