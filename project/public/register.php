@@ -1,16 +1,30 @@
 <?php
 
+use App\Hydrator\EntityHydrator;
+
 require_once '../src/setup.php';
 
 if (isset($_POST['name'], $_POST['dob'], $_POST['email'], $_POST['password'], $_POST['confirmPassword'])) {
-    if ($_POST['password'] === $_POST['confirmPassword']) {
-        $formUser = new User();
-        //hydration
-        //password hashing
-    }
-    //handle passwords don;t match
-}
+    $dob = $_POST['dob'];
+    if (time() < strtotime('+18 years', strtotime($dob))) {
+        $message = "You must be over 18 to use this site.";
+        exit;
+    } else {
+        if ($_POST['password'] === $_POST['confirmPassword']) {
+            $formUser = [
+                'name' => strip_tags($_POST['name']),
+                'email' => filter_var($_POST['email'], FILTER_SANITIZE_EMAIL),
+                'password' => password_hash($_POST['password'], PASSWORD_DEFAULT)
+            ];
 
+            $hydrator = new EntityHydrator();
+            $formUser = $hydrator->hydrateUser($formUser);
+
+        } else {
+            $message = "Your email or password did not match. Please try again";
+        }
+    }
+}
 ?>
 <!doctype html>
 <html lang="en">

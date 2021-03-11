@@ -50,7 +50,7 @@ foreach ($productsData as $row) {
     <?php if (empty($productsData)): ?>
         <h6>No products found</h6>
     <?php else: foreach ($productsList as $product): ?>
-    <a class="col-lg-4 col-md-6 col-sm-6 col-12" href="productpage.php?productId=<?= $product->id; ?>">
+    <a id="item" class="col-lg-4 col-md-6 col-sm-6 col-12" href="productpage.php?productId=<?= $product->id; ?>">
         <div class="beer-pic">
             <img src="<?= '../' . $product->image_path; ?>">
             <div class="row">

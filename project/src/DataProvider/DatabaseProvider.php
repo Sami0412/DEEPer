@@ -4,6 +4,7 @@ namespace App\DataProvider;
 
 use App\Entity\Product;
 use App\Entity\CheckIn;
+use App\Entity\User;
 use App\Hydrator\EntityHydrator;
 use PDO;
 
@@ -27,6 +28,7 @@ class DatabaseProvider
         }
     }
 
+
     public function getProducts(string $searchTerm): array
     {
         $stmt = $this->dbh->prepare(
@@ -43,6 +45,7 @@ class DatabaseProvider
         ]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
 
     public function getProduct(int $productId): ?Product
     {
@@ -68,10 +71,12 @@ class DatabaseProvider
         return $hydrator->hydrateProductWithCheckIns($productAndCheckInData);
     }
 
+
     public function getCheckIn(): ?CheckIn
     {
 
     }
+
 
     public function createProduct(Product $product): Product
     {
@@ -86,10 +91,25 @@ class DatabaseProvider
             'description' => $product->description
         ]);
 
-        //Use builtin function lastInsertId to get the newly created ID for the new product
+        //Use built-in function lastInsertId to get the newly created ID for the new product
         $lastInsertId = $this->dbh->lastInsertId();
         //Pass new ID into getProduct to retrieve all DB info of new product
         $newProduct = $this->getProduct($lastInsertId);
         return $newProduct;
+    }
+
+
+    public function createUser(User $user): User
+    {
+        $stmt = $this->dbh->prepare('
+            INSERT INTO users (username, email, password)
+            VALUES (:username, :email, :password)'
+        );
+
+        $stmt->execute([
+            'username' => $user->name,
+            'email' => $user->email,
+            'password' => $user->password
+        ]);
     }
 }

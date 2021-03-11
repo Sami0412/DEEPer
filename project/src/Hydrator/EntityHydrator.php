@@ -4,6 +4,7 @@ namespace App\Hydrator;
 
 use App\Entity\CheckIn;
 use App\Entity\Product;
+use App\Entity\User;
 
 class EntityHydrator
 {
@@ -64,6 +65,12 @@ class EntityHydrator
 
     public function hydrateUser(array $data): User
     {
+        $user = new User();
+        $user->id = $data['id'] ?? null;
+        $user->name = $data['name'];
+        $user->email = $data['email'];
+        $user->password = $data['password'];
 
+        return $user;
     }
 }
