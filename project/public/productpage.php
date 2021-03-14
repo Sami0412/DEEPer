@@ -23,13 +23,13 @@ require_once '../src/index.php';
                 </ol>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img class="d-block w-100" src="../<?= $product->image_path ?>" alt="A Beer">
+                        <img class="d-block w-100" src="<?= $product->image_path ?>" alt="A Beer">
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block w-100" src="../<?= $product->image_path ?>" alt="A Beer">
+                        <img class="d-block w-100" src="<?= $product->image_path ?>" alt="A Beer">
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block w-100 mh-75" src="../<?= $product->image_path ?>" alt="A beer">
+                        <img class="d-block w-100 mh-75" src="<?= $product->image_path ?>" alt="A beer">
                     </div>
                 </div>
                 <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -126,7 +126,8 @@ require_once '../src/index.php';
 <section id="checkins">
     <?php if (!count($product->getCheckIns())) : ?>
     <div class="p-4 mb-4">No reviews yet</div>
-    <?php else: foreach ($product->getCheckIns() as $checkIn): ?>
+    <?php else:
+        foreach ($product->getCheckIns() as $checkIn): ?>
         <div class="border border-warning p-4 my-4">
             <div class="row">
                 <h3 class="col-2"><?= $checkIn->name ?></h3>

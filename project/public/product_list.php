@@ -52,7 +52,7 @@ foreach ($productsData as $row) {
     <?php else: foreach ($productsList as $product): ?>
     <a id="item" class="col-lg-4 col-md-6 col-sm-6 col-12" href="productpage.php?productId=<?= $product->id; ?>">
         <div class="beer-pic">
-            <img src="<?= '../' . $product->image_path; ?>">
+            <img src="<?= $product->image_path; ?>">
             <div class="row">
                 <h6 class="col-12"><?= $product->title; ?></h6>
             </div>

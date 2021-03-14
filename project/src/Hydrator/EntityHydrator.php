@@ -11,14 +11,14 @@ class EntityHydrator
     public function hydrateProduct(array $data): Product
     {
         $product = new Product();
-        $product->id = $data['id'];
+        $product->id = $data['id'] ?? null;
         $product->title = $data['title'];
         $product->description = $data['description'];
         $product->abv = $data['abv'];
         $product->beerStyle = $data['beer_style'];
         $product->brewery = $data['brewery'];
-        $product->image_path = $data['image_path'];
-        $product->avg_rating = $data['avg_rating'];
+        $product->image_path = $data['image_path'] ?? null;
+        $product->avg_rating = $data['avg_rating'] ?? null;
 
         return $product;
     }

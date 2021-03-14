@@ -82,13 +82,17 @@ class DatabaseProvider
     {
         //Insert into database
         $stmt = $this->dbh->prepare(
-            'INSERT INTO products(title, description)
-            VALUES (:title, :description)'
+            'INSERT INTO products(title, description, image_path, abv, beer_style, brewery)
+            VALUES (:title, :description, :imagePath, :abv, :beerStyle, :brewery)'
         );
 
         $stmt->execute([
             'title' => $product->title,
-            'description' => $product->description
+            'description' => $product->description,
+            'imagePath' => $product->image_path,
+            'abv' => $product->abv,
+            'beerStyle' => $product->beerStyle,
+            'brewery' => $product->brewery
         ]);
 
         //Use built-in function lastInsertId to get the newly created ID for the new product
