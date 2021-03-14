@@ -20,7 +20,7 @@ $logger = new \Monolog\Logger('application');
 $logger->pushHandler(
     new \Monolog\Handler\StreamHandler(
         'application.log',
-        \Monolog\Logger::WARNING
+        \Monolog\Logger::DEBUG
     )
 );
 

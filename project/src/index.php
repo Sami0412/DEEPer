@@ -18,6 +18,7 @@ if (!empty($_POST)) {
         $review = $_POST["review"];
 
         //Prepare SQL statement with placeholders
+        //Use dbprovider
         $stmt = $dbh->prepare(
             'INSERT INTO checkins (user_name, rating, review) VALUES (:user_name, :rating, :review)'
         );
@@ -29,6 +30,8 @@ if (!empty($_POST)) {
             'review' => $review
         ]);
 
+        $logger->info('Review added to ' . $product->title);
+
         //return data to main.js, in this case a bootstrap success message
         echo '<div class="alert alert-success alert-dismissible fade show" role="alert">';
         echo '<strong>Success!</strong> Your review has been saved.';
@@ -36,6 +39,7 @@ if (!empty($_POST)) {
         echo '<span aria-hidden="true">&times;</span></button></div>';
 
     } else {
+        $logger->notice('Google ReCaptcha verification failed');
         echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">';
         echo '<strong>Verification failed</strong> Please try again.';
         echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close">';
