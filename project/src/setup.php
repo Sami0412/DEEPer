@@ -26,5 +26,7 @@ $logger->pushHandler(
 
 $dbProvider = new DatabaseProvider();
 
-
+//Create $_SESSION superglobal
+//session is a cookie (temp storage) stored on server
+session_start();
 

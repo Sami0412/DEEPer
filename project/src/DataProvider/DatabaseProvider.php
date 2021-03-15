@@ -159,4 +159,26 @@ class DatabaseProvider
         $hydrator = new EntityHydrator();
         return $hydrator->hydrateUser($result);
     }
+
+    public function getUserByEmail(string $email) :?User
+    {
+        $stmt = $this->dbh->prepare(
+            'SELECT id, username, email, password
+            FROM users 
+            WHERE email = :email'
+        );
+
+        $stmt->execute([
+            'email' => $email
+        ]);
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (empty($result)) {
+            return null;
+        }
+
+        $hydrator = new EntityHydrator();
+        return $hydrator->hydrateUser($result);
+    }
 }
