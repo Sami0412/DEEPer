@@ -26,7 +26,7 @@ class EntityHydrator
     public function hydrateCheckIn(array $data): CheckIn
     {
         $checkIn = new CheckIn();
-        $checkIn->id = $data['id'];
+        $checkIn->id = $data['id'] ?? null;
         $checkIn->product_id = $data['product_id'];
         $checkIn->name = $data['user_name'];
         $checkIn->rating = $data['rating'];
@@ -67,7 +67,7 @@ class EntityHydrator
     {
         $user = new User();
         $user->id = $data['id'] ?? null;
-        $user->name = $data['name'];
+        $user->name = $data['username'];
         $user->email = $data['email'];
         $user->password = $data['password'];
 

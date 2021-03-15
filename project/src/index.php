@@ -1,6 +1,8 @@
 <?php
 
 //set up database connection (as well as libraries)
+use App\Hydrator\EntityHydrator;
+
 require_once 'setup.php';
 
 //Only runs on form submission (i.e when $_POST contains data)
@@ -13,22 +15,18 @@ if (!empty($_POST)) {
     $response = json_decode($response);
     if ($response->success) {
         //save data from POST to variables
-        $name = $_POST["userName"];
-        $rating = $_POST["rating"];
-        $review = $_POST["review"];
+        $checkInData = [
+            'product_id' => $_POST['product_id'],
+            'name' => strip_tags($_POST["userName"]),
+            'rating' => filter_var($_POST["rating"], FILTER_VALIDATE_INT),
+            'review' => strip_tags($_POST["review"]),
+            'submitted' => date("Y-m-d H:i:s")
+        ];
 
-        //Prepare SQL statement with placeholders
-        //Use dbprovider
-        $stmt = $dbh->prepare(
-            'INSERT INTO checkins (user_name, rating, review) VALUES (:user_name, :rating, :review)'
-        );
+        $hydrator = new EntityHydrator();
+        $checkIn = $hydrator->hydrateCheckIn($checkInData);
 
-        //Execute SQL query with placeholder values inserted
-        $stmt->execute([
-            'user_name' => $name,
-            'rating' => $rating,
-            'review' => $review
-        ]);
+        $newCheckIn = $dbProvider->createCheckIn($checkIn);
 
         $logger->info('Review added to ' . $product->title);
 

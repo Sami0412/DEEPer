@@ -13,6 +13,9 @@
                 <a class="nav-link" href="register.php">Register</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="login.php">Log In</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="add_product.php">Add Your Beer</a>
             </li>
             <li class="nav-item dropdown">

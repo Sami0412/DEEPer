@@ -60,15 +60,31 @@ class DatabaseProvider
             LEFT JOIN checkins AS c ON c.product_id = p.id
             WHERE p.id = :id'
         );
-//Insert product id from URL & execute query
+        //Insert product id from URL & execute query
         $stmt->execute([
             'id' => $productId
         ]);
-//Retrieve array
+        //Retrieve array
         $productAndCheckInData = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         $hydrator = new EntityHydrator();
         return $hydrator->hydrateProductWithCheckIns($productAndCheckInData);
+    }
+
+    public function createCheckIn(CheckIn $checkIn): CheckIn
+    {
+        $stmt = $this->dbh->prepare(
+            'INSERT INTO checkins (user_name, rating, review, submitted) VALUES (:user_name, :rating, :review, :submitted)'
+        );
+
+        $stmt->execute([
+            'user_name' => $checkIn->name,
+            'rating' => $checkIn->rating,
+            'review' => $checkIn->review,
+            'submitted' => $checkIn->posted
+        ]);
+
+        return $checkIn;
     }
 
 
@@ -115,5 +131,32 @@ class DatabaseProvider
             'email' => $user->email,
             'password' => $user->password
         ]);
+
+        $lastInsertId = $this->dbh->lastInsertId();
+        $newUser = $this->getUser($lastInsertId);
+
+        return $newUser;
+    }
+
+    public function getUser(int $userId): ?User
+    {
+        $stmt = $this->dbh->prepare(
+            'SELECT id, username, email, password
+            FROM users 
+            WHERE id = :id'
+        );
+
+        $stmt->execute([
+            'id' => $userId
+        ]);
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (empty($result)) {
+            return null;
+        }
+
+        $hydrator = new EntityHydrator();
+        return $hydrator->hydrateUser($result);
     }
 }

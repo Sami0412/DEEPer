@@ -4,7 +4,9 @@ use App\Hydrator\EntityHydrator;
 
 require_once '../src/setup.php';
 
-if (isset($_POST['name'], $_POST['dob'], $_POST['email'], $_POST['password'], $_POST['confirmPassword'])) {
+$registered = false;
+
+if (isset($_POST['username'], $_POST['dob'], $_POST['email'], $_POST['password'], $_POST['confirmPassword'])) {
     $dob = $_POST['dob'];
     if (time() < strtotime('+18 years', strtotime($dob))) {
         $message = "You must be over 18 to use this site.";
@@ -12,13 +14,16 @@ if (isset($_POST['name'], $_POST['dob'], $_POST['email'], $_POST['password'], $_
     } else {
         if ($_POST['password'] === $_POST['confirmPassword']) {
             $formUser = [
-                'name' => strip_tags($_POST['name']),
+                'username' => strip_tags($_POST['username']),
                 'email' => filter_var($_POST['email'], FILTER_SANITIZE_EMAIL),
                 'password' => password_hash($_POST['password'], PASSWORD_DEFAULT)
             ];
 
             $hydrator = new EntityHydrator();
             $formUser = $hydrator->hydrateUser($formUser);
+
+            $user = $dbProvider->createUser($formUser);
+            $registered = true;
 
         } else {
             $message = "Your email or password did not match. Please try again";
@@ -38,11 +43,14 @@ if (isset($_POST['name'], $_POST['dob'], $_POST['email'], $_POST['password'], $_
     <img class="banner" src="../uploads/Beer_banner.jpeg">
     <?php include 'template_parts/navigation.php'?>
     <h1>Register</h1>
+    <?php if ($registered): ?>
+    <div class="alert alert-success">You have successfully registered. Please <a href="login.php" title="log in">log in</a></div>
+    <?php endif; ?>
     <div class="card p-4">
         <form method="post">
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" class="form-control" name="name" id="name">
+                <input type="text" class="form-control" name="username" id="name">
             </div>
             <div class="form-group">
                 <label for="dob">Date of Birth</label>
