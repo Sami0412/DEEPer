@@ -30,3 +30,7 @@ $dbProvider = new DatabaseProvider();
 //session is a cookie (temp storage) stored on server
 session_start();
 
+if (isset($_SESSION['LoginId'])) {
+    $loggedInUser = $dbProvider->getUser($_SESSION['LoginId']);
+}
+

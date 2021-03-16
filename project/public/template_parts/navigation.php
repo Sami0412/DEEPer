@@ -9,15 +9,11 @@
             <li class="nav-item active">
                 <a class="nav-link" href="product_list.php">Home <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="register.php">Register</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="login.php">Log In</a>
-            </li>
+
             <li class="nav-item">
                 <a class="nav-link" href="add_product.php">Add Your Beer</a>
             </li>
+
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Dropdown link
@@ -28,6 +24,21 @@
                     <a class="dropdown-item" href="#">Something else here</a>
                 </div>
             </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <?php if (!empty($loggedInUser)): ?>
+            <li class="nav-item">
+                <div class="nav-link">Hello, <?= $loggedInUser->name ?></div>
+            </li>
+            <?php else: ?>
+            <li class="nav-item">
+                <a class="nav-link" href="register.php">Register</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="login.php">Log In</a>
+            </li>
+            <?php endif; ?>
         </ul>
     </div>
 </nav>
