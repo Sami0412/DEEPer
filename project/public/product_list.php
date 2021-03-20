@@ -22,7 +22,7 @@ foreach ($productsData as $row) {
 <html lang="en">
 <head>
     <?php include 'template_parts/header_includes.php' ?>
-    <link rel="stylesheet" href="../src/beerlist.css">
+    <link rel="stylesheet" href="beerlist.css">
     <title>Craft Beer Selection</title>
 </head>
 <body class="container">

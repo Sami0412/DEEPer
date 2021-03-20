@@ -28,10 +28,10 @@ class EntityHydrator
         $checkIn = new CheckIn();
         $checkIn->id = $data['id'] ?? null;
         $checkIn->product_id = $data['product_id'];
-        $checkIn->name = $data['user_name'];
+        $checkIn->name = $data['name'];
         $checkIn->rating = $data['rating'];
         $checkIn->review = $data['review'];
-        $checkIn->posted = $data['submitted'];
+        $checkIn->posted = $data['submitted'] ?? null;
 
         return $checkIn;
     }
@@ -54,7 +54,7 @@ class EntityHydrator
         $product = $this->hydrateProduct($productData);
 
         foreach ($data as $checkinRow) {
-            if ($checkinRow['user_name'] !== null) {
+            if ($checkinRow['name'] !== null) {
                 $checkIn = $this->hydrateCheckIn($checkinRow);
                 $product->addCheckin($checkIn);
             }

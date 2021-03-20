@@ -1,6 +1,6 @@
 @font-face {
     font-family: northhead;
-    src: url("Northead-0WgdX.ttf");
+    src: url("../src/Northead-0WgdX.ttf");
 }
 
 body {
@@ -35,6 +35,16 @@ h1 {
 
 #description {
     padding-top: 5%;
+}
+
+.modal-body {
+    background-image: url("../uploads/beer.jpeg");
+    color: black;
+}
+
+.modal-header {
+    background-color: white;
+    color: black;
 }
 
 #additional-info {

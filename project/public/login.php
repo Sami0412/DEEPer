@@ -19,7 +19,7 @@ if (isset($_POST['email'], $_POST['password'])) {
 <html lang="en">
 <head>
 <?php include 'template_parts/header_includes.php'; ?>
-    <link rel="stylesheet" href="../src/index.css">
+    <link rel="stylesheet" href="index.css">
     <title>Log In</title>
 </head>
 <body>

@@ -35,7 +35,7 @@ if (isset($_POST['username'], $_POST['dob'], $_POST['email'], $_POST['password']
 <html lang="en">
 <head>
     <?php include 'template_parts/header_includes.php' ?>
-    <link rel="stylesheet" href="../src/beerlist.css">
+    <link rel="stylesheet" href="beerlist.css">
     <title>Join Us!</title>
 </head>
 <body>

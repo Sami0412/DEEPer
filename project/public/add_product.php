@@ -55,7 +55,7 @@ if (!empty($_POST)) {
 <html lang="en">
 <head>
     <?php include 'template_parts/header_includes.php'?>
-    <link rel="stylesheet" href="../src/beerlist.css">
+    <link rel="stylesheet" href="beerlist.css">
     <title>Add New Beer</title>
 </head>
 <body>

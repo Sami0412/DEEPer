@@ -5,47 +5,44 @@ use App\Hydrator\EntityHydrator;
 
 require_once 'setup.php';
 
-//Only runs on form submission (i.e when $_POST contains data)
-if (!empty($_POST)) {
-    //Google ReCAPTCHA setup
-    $secretKey = $_ENV['secretKey'];
-    $responseKey = $_POST['responseKey'];
-    $url = "https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$responseKey";
-    $response = file_get_contents($url);
-    $response = json_decode($response);
-    if ($response->success) {
-        //save data from POST to variables
-        $checkInData = [
-            'product_id' => $_POST['product_id'],
-            'name' => strip_tags($_POST["userName"]),
-            'rating' => filter_var($_POST["rating"], FILTER_VALIDATE_INT),
-            'review' => strip_tags($_POST["review"]),
-            'submitted' => date("Y-m-d H:i:s")
-        ];
+//Google ReCAPTCHA setup
+$secretKey = $_ENV['secretKey'];
+$responseKey = $_POST['g-recaptcha-response'];
+$url = "https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$responseKey";
+$response = file_get_contents($url);
+$response = json_decode($response);
+if ($response->success) {
+    //save data from POST to variables
+    $checkInData = [
+        'product_id' => filter_var($_POST['product_id'], FILTER_VALIDATE_INT),
+        'name' => strip_tags($_POST['userName']),
+        'rating' => filter_var($_POST['rating'], FILTER_VALIDATE_INT, ['options' => ['min_range' => 1, 'max_range' => 5]]),
+        'review' => strip_tags($_POST['review'])
+    ];
 
-        $hydrator = new EntityHydrator();
-        $checkIn = $hydrator->hydrateCheckIn($checkInData);
-
-        $newCheckIn = $dbProvider->createCheckIn($checkIn);
-
-        $logger->info('Review added to ' . $product->title);
-
-        //return data to main.js, in this case a bootstrap success message
-        echo '<div class="alert alert-success alert-dismissible fade show" role="alert">';
-        echo '<strong>Success!</strong> Your review has been saved.';
-        echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close">';
-        echo '<span aria-hidden="true">&times;</span></button></div>';
-
-    } else {
-        $logger->notice('Google ReCaptcha verification failed');
-        echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">';
-        echo '<strong>Verification failed</strong> Please try again.';
-        echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close">';
-        echo '<span aria-hidden="true">&times;</span></button></div>';
+    if (empty($checkInData['product_id'])) {
+        header('Location: product-list.php');
+        exit;
     }
-    //Return to main.js
-    die();
-}
 
-$productId = $_GET['productId'];
-$product = $dbProvider->getProduct($productId);
+    if (empty($checkInData['name']) || empty($checkInData['rating']) || empty($checkInData['review'])) {
+        header('Location: productpage.php?productId=' . $checkInData['product_id'] . '&message=error');
+    }
+
+    $hydrator = new EntityHydrator();
+    $checkIn = $hydrator->hydrateCheckIn($checkInData);
+
+    $newCheckIn = $dbProvider->createCheckIn($checkIn);
+    $productName = $dbProvider->getProductById($newCheckIn->product_id);
+
+    echo '<script type="text/javascript">$("#success").removeClass("hidden")</script>';
+
+    $logger->info('Review added to ' . $productName);
+
+    header('Location: ../public/productpage.php?productId='. $_POST['product_id']);
+} else {
+
+    echo '<script type="text/javascript">$("#failure").removeClass("hidden")</script>';
+
+   header('Location: ../public/productpage.php?productId='. $_POST['product_id']);
+}

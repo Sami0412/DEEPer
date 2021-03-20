@@ -52,7 +52,7 @@ class DatabaseProvider
         $stmt = $this->dbh->prepare(
             'SELECT
             p.id AS product_id, p.title, p.description, p.image_path, p.abv, p.beer_style, p.brewery,
-            c.id, c.user_name, c.rating, c.review, c.submitted,
+            c.id, c.user_name AS name, c.rating, c.review, c.submitted,
             (
                 SELECT AVG(IFNULL(checkins.rating, 0)) FROM checkins WHERE product_id = p.id
             ) AS avg_rating
@@ -71,26 +71,61 @@ class DatabaseProvider
         return $hydrator->hydrateProductWithCheckIns($productAndCheckInData);
     }
 
-    public function createCheckIn(CheckIn $checkIn): CheckIn
+    public function getProductById(int $productId): string
     {
         $stmt = $this->dbh->prepare(
-            'INSERT INTO checkins (user_name, rating, review, submitted) VALUES (:user_name, :rating, :review, :submitted)'
+            'SELECT title FROM products
+            WHERE id = :id'
         );
 
         $stmt->execute([
-            'user_name' => $checkIn->name,
-            'rating' => $checkIn->rating,
-            'review' => $checkIn->review,
-            'submitted' => $checkIn->posted
+            'id' => $productId
         ]);
 
-        return $checkIn;
+        return $stmt->fetchColumn();
+    }
+
+    public function createCheckIn(CheckIn $checkIn): CheckIn
+    {
+        $stmt = $this->dbh->prepare(
+            'INSERT INTO checkins (product_id, user_name, rating, review) 
+            VALUES (:product_id, :name, :rating, :review)'
+        );
+
+        $stmt->execute([
+            'product_id' => $checkIn->product_id,
+            'name' => $checkIn->name,
+            'rating' => $checkIn->rating,
+            'review' => $checkIn->review,
+            //'submitted' => $checkIn->posted
+        ]);
+
+        $lastInsertId = $this->dbh->lastInsertId();
+        $newCheckIn = $this->getCheckIn($lastInsertId);
+
+        return $newCheckIn;
     }
 
 
-    public function getCheckIn(): ?CheckIn
+    public function getCheckIn(int $checkInId): ?CheckIn
     {
+        $stmt = $this->dbh->prepare(
+            'SELECT id, product_id, user_name AS name, rating, review, submitted
+            FROM checkins
+            WHERE id = :id'
+        );
 
+        $stmt->execute([
+            'id' => $checkInId
+        ]);
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (empty($result)) {
+            return null;
+        }
+
+        $hydrator = new EntityHydrator();
+        return $hydrator->hydrateCheckIn($result);
     }
 
 

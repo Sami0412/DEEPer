@@ -1,11 +1,18 @@
 <?php
-require_once '../src/index.php';
+
+use App\Hydrator\EntityHydrator;
+
+require_once '../src/setup.php';
+
+$productId = $_GET['productId'];
+$product = $dbProvider->getProduct($productId);
+
 ?>
 <!doctype html>
 <html lang="en">
 <head>
     <?php include 'template_parts/header_includes.php' ?>
-    <link rel="stylesheet" href="../src/index.css">
+    <link rel="stylesheet" href="index.css">
     <title>Craft Beer Ratings</title>
 </head>
 <body class="container">
@@ -48,39 +55,43 @@ require_once '../src/index.php';
                 <div class="col">
                     <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#checkinModal">Review</button>
                 </div>
-                <div id="success" class="justify-content-center mr-5 mb-n4 mt-n2"></div>
+                <div class="justify-content-center mr-5 mb-n4 mt-n2 hidden" id="success" hidden>Your review has been saved</div>
+                <div class="justify-content-center mr-5 mb-n4 mt-n2 hidden" id="failure" hidden>Please try again</div>
             </div>
-            <div class="modal fade" id="checkinModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="checkinModal" tabindex="-1" aria-labelledby="checkinModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <form action="" method="post" id="myForm">
+                        <form action="../src/index.php" method="post" id="myForm">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Check In</h5>
+                                <h5 class="modal-title" id="checkinModalLabel">Leave a Review</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <input type="hidden" name="product_id" value="<?= $_GET['productId'] ?>"
                                 <div class="form-group">
                                     <label for="userName">Name:</label>
-                                    <input type="text" name="userName" id="userName" class="form-control">
+                                    <input type="text" name="userName" id="userName" class="form-control" aria-describedby="yourName" value="<?= $loggedInUser->name ?? '' ?>">
+                                    <small id="yourName" class="form-text text-dark">Please enter your name</small>
                                 </div>
                                 <div class="form-group">
                                     <label for="rating">Rating:</label>
-                                    <input type="number" max="5" name="rating" id="rating" class="form-control">
+                                    <input type="number" min="1" max="5" name="rating" id="rating" class="form-control" aria-describedby="yourRating">
+                                    <small id="yourRating" class="form-text text-dark">Enter rating from 1 to 5</small>
                                 </div>
                                 <div class="form-group">
                                     <label for="review">Review:</label>
-                                    <textarea name="review" id="review" class="form-control"></textarea>
+                                    <textarea name="review" id="review" class="form-control" aria-describedby="yourReview"></textarea>
+                                    <small id="yourReview" class="form-text text-dark">Tell us what you thought of this beer</small>
                                 </div>
+                                <input type="hidden" name="product_id" id="product_id" value="<?= $productId ?>">
                                 <div class="g-recaptcha" data-sitekey="6LfWvWEaAAAAAAJGEAI9jrH15qSOyzBFBwOewuGo"></div>
-                                <div class="form-group">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                <div class="form-group pt-2">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-success">Add Review</button>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -141,7 +152,7 @@ require_once '../src/index.php';
 </section>
 
 <?php include 'template_parts/footer_includes.php'?>
-<script src="../src/main.js"></script>
+<!--<script src="../src/main.js"></script>-->
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </body>
 </html>
