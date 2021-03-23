@@ -68,4 +68,3 @@ if (isset($productsList)) {
 </div>
 <?php include 'template_parts/footer_includes.php'?>
 </body>
-</html>
