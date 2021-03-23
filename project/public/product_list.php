@@ -46,9 +46,15 @@ foreach ($productsData as $row) {
     <button type="submit" class="btn btn-primary">Search</button>
 </form>
 
+<?php
+if (isset($productsList)) {
+    echo count($productsList) . ' result' . (count($productsList) === 1 ? '' : 's') . ' found.';
+}
+?>
+
 <div class="row my-4">
     <?php if (empty($productsData)): ?>
-        <h6>No products found</h6>
+        <h6 class="ml-3">No products found</h6>
     <?php else: foreach ($productsList as $product): ?>
     <a id="item" class="col-lg-4 col-md-6 col-sm-6 col-12" href="productpage.php?productId=<?= $product->id; ?>">
         <div class="beer-pic">
