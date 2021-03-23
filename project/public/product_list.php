@@ -54,7 +54,13 @@ if (isset($productsList)) {
 
 <div class="row my-4">
     <?php if (empty($productsData)): ?>
-        <h6 class="ml-3">No products found</h6>
+        <div class="noproducts col-12">
+            <h3 class="ml-3">No products found</h3>
+            <p>Can't find the beer you're looking for?</p>
+            <p>Submit your own beer here: <a href="add_product.php">Add Beer</a></p>
+            <hr>
+            <a href="product_list.php">Back to beer list</a>
+        </div>
     <?php else: foreach ($productsList as $product): ?>
     <a id="item" class="col-lg-4 col-md-6 col-sm-6 col-12" href="productpage.php?productId=<?= $product->id; ?>">
         <div class="beer-pic">

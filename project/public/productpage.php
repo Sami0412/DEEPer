@@ -4,8 +4,19 @@ use App\Hydrator\EntityHydrator;
 
 require_once '../src/setup.php';
 
+if (!isset($_GET['productId'])) {
+    //Redirect to an error page with link back to product list??
+    header('Location: 404.php');
+    die;
+}
+
 $productId = $_GET['productId'];
 $product = $dbProvider->getProduct($productId);
+
+if (!$product) {
+    header('Location: 404.php');
+    die;
+}
 
 ?>
 <!doctype html>

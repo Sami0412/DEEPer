@@ -11,6 +11,7 @@ if (isset($_POST['email'], $_POST['password'])) {
         header('Location: product_list.php');
         exit();
     } else {
+        $logger->alert('Incorrect log in details entered');
         $errorMessage = "Incorrect email and password combination, please try again";
     }
 }
