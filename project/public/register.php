@@ -1,6 +1,6 @@
 <?php
 
-use App\Hydrator\EntityHydrator;
+use App\Hydrator\UserHydrator;
 
 require_once '../src/setup.php';
 
@@ -19,7 +19,7 @@ if (isset($_POST['username'], $_POST['dob'], $_POST['email'], $_POST['password']
                 'password' => password_hash($_POST['password'], PASSWORD_DEFAULT)
             ];
 
-            $hydrator = new EntityHydrator();
+            $hydrator = new UserHydrator();
             $formUser = $hydrator->hydrateUser($formUser);
 
             $user = $dbProvider->createUser($formUser);

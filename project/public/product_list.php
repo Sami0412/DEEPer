@@ -1,6 +1,6 @@
 <?php
 
-use App\Hydrator\EntityHydrator;
+use App\Hydrator\ProductHydrator;
 
 require_once '../src/setup.php';
 
@@ -13,7 +13,7 @@ if (isset($_POST['search'])) {
 //Display all products OR searched products from database on page:
 $productsData = $dbProvider->getProducts($searchTerm);
 
-$hydrator = new EntityHydrator();
+$hydrator = new ProductHydrator();
 foreach ($productsData as $row) {
     $productsList[] = $hydrator->hydrateProduct($row);
 }

@@ -5,7 +5,9 @@ namespace App\DataProvider;
 use App\Entity\Product;
 use App\Entity\CheckIn;
 use App\Entity\User;
-use App\Hydrator\EntityHydrator;
+use App\Hydrator\CheckInHydrator;
+use App\Hydrator\ProductHydrator;
+use App\Hydrator\UserHydrator;
 use PDO;
 
 class DatabaseProvider
@@ -67,7 +69,7 @@ class DatabaseProvider
         //Retrieve array
         $productAndCheckInData = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        $hydrator = new EntityHydrator();
+        $hydrator = new ProductHydrator();
         return $hydrator->hydrateProductWithCheckIns($productAndCheckInData);
     }
 
@@ -124,7 +126,7 @@ class DatabaseProvider
             return null;
         }
 
-        $hydrator = new EntityHydrator();
+        $hydrator = new CheckInHydrator();
         return $hydrator->hydrateCheckIn($result);
     }
 
@@ -191,7 +193,7 @@ class DatabaseProvider
             return null;
         }
 
-        $hydrator = new EntityHydrator();
+        $hydrator = new UserHydrator();
         return $hydrator->hydrateUser($result);
     }
 
@@ -213,7 +215,7 @@ class DatabaseProvider
             return null;
         }
 
-        $hydrator = new EntityHydrator();
+        $hydrator = new UserHydrator();
         return $hydrator->hydrateUser($result);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-use App\Hydrator\EntityHydrator;
+use App\Hydrator\ProductHydrator;
 
 require_once '../src/setup.php';
 
@@ -16,7 +16,7 @@ if (!empty($_POST)) {
     ];
 
     //Use hydrator to create new product instance, using POST data array
-    $hydrator = new EntityHydrator();
+    $hydrator = new ProductHydrator();
     $newProduct = $hydrator->hydrateProduct($formData);
 
     //Save uploaded file to required file path
@@ -37,7 +37,7 @@ if (!empty($_POST)) {
                 //Error handling
                 throw new RuntimeException('Failed to move file');
             }
-            //Assign new imagep path to new product instance
+            //Assign new image path to new product instance
             $newProduct->image_path = $targetPath;
         }
 
