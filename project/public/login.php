@@ -1,5 +1,7 @@
 <?php
 
+use Monolog\Logger;
+
 require_once '../src/setup.php';
 
 if (isset($_POST['email'], $_POST['password'])) {

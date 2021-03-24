@@ -13,7 +13,7 @@ if (isset($_POST['search'])) {
 //Display all products OR searched products from database on page:
 $productsData = $dbProvider->getProducts($searchTerm);
 
-$hydrator = new ProductHydrator();
+$hydrator = $container[ProductHydrator::class];
 foreach ($productsData as $row) {
     $productsList[] = $hydrator->hydrateProduct($row);
 }

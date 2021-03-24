@@ -1,6 +1,7 @@
 <?php
 
 use App\Hydrator\ProductHydrator;
+use Monolog\Logger;
 
 require_once '../src/setup.php';
 
@@ -16,7 +17,7 @@ if (!empty($_POST)) {
     ];
 
     //Use hydrator to create new product instance, using POST data array
-    $hydrator = new ProductHydrator();
+    $hydrator = $container[ProductHydrator::class];
     $newProduct = $hydrator->hydrateProduct($formData);
 
     //Save uploaded file to required file path

@@ -13,23 +13,17 @@ use PDO;
 class DatabaseProvider
 {
     private PDO $dbh;
+    private CheckInHydrator $checkInHydrator;
+    private ProductHydrator $productHydrator;
+    private UserHydrator $userHydrator;
 
-    public function __construct()
+    public function __construct(PDO $dbh, CheckInHydrator $checkInHydrator, ProductHydrator $productHydrator, UserHydrator $userHydrator)
     {
-        try {
-            $this->dbh = new PDO(
-                "mysql:dbname=myproject;host=mysql",
-                $_ENV['DBUSERNAME'],
-                $_ENV['DBPASSWD']
-            );
-
-            $this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        } catch (PDOException $e) {
-            die("Database connection failed");
-        }
+        $this->dbh = $dbh;
+        $this->checkInHydrator = $checkInHydrator;
+        $this->productHydrator = $productHydrator;
+        $this->userHydrator = $userHydrator;
     }
-
 
     public function getProducts(string $searchTerm): array
     {
@@ -69,8 +63,7 @@ class DatabaseProvider
         //Retrieve array
         $productAndCheckInData = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        $hydrator = new ProductHydrator();
-        return $hydrator->hydrateProductWithCheckIns($productAndCheckInData);
+        return $this->productHydrator->hydrateProductWithCheckIns($productAndCheckInData);
     }
 
     public function getProductById(int $productId): string
@@ -99,7 +92,6 @@ class DatabaseProvider
             'name' => $checkIn->name,
             'rating' => $checkIn->rating,
             'review' => $checkIn->review,
-            //'submitted' => $checkIn->posted
         ]);
 
         $lastInsertId = $this->dbh->lastInsertId();
@@ -126,8 +118,7 @@ class DatabaseProvider
             return null;
         }
 
-        $hydrator = new CheckInHydrator();
-        return $hydrator->hydrateCheckIn($result);
+        return $this->checkInHydrator->hydrateCheckIn($result);
     }
 
 
@@ -193,8 +184,7 @@ class DatabaseProvider
             return null;
         }
 
-        $hydrator = new UserHydrator();
-        return $hydrator->hydrateUser($result);
+        return $this->userHydrator->hydrateUser($result);
     }
 
     public function getUserByEmail(string $email) :?User
@@ -215,7 +205,6 @@ class DatabaseProvider
             return null;
         }
 
-        $hydrator = new UserHydrator();
-        return $hydrator->hydrateUser($result);
+        return $this->userHydrator->hydrateUser($result);
     }
 }

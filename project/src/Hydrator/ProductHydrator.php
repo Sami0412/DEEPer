@@ -7,15 +7,17 @@ use App\Entity\Product;
 class ProductHydrator
 {
     private CheckInHydrator $checkInHydrator;
+    private Product $product;
 
-    public function __construct()
+    public function __construct(Product $product, CheckInHydrator $checkInHydrator)
     {
-        $this->checkInHydrator = new CheckInHydrator();
+        $this->product = $product;
+        $this->checkInHydrator = $checkInHydrator;
     }
 
     public function hydrateProduct(array $data): Product
     {
-        $product = new Product();
+        $product = clone $this->product;
         $product->id = $data['id'] ?? null;
         $product->title = $data['title'];
         $product->description = $data['description'];

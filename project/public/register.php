@@ -10,7 +10,7 @@ if (isset($_POST['username'], $_POST['dob'], $_POST['email'], $_POST['password']
     $dob = $_POST['dob'];
     if (time() < strtotime('+18 years', strtotime($dob))) {
         $message = "You must be over 18 to use this site.";
-        exit;
+        $logger->alert('Underage user tried to register');
     } else {
         if ($_POST['password'] === $_POST['confirmPassword']) {
             $formUser = [
@@ -19,11 +19,12 @@ if (isset($_POST['username'], $_POST['dob'], $_POST['email'], $_POST['password']
                 'password' => password_hash($_POST['password'], PASSWORD_DEFAULT)
             ];
 
-            $hydrator = new UserHydrator();
+            $hydrator = $container[UserHydrator::class];
             $formUser = $hydrator->hydrateUser($formUser);
 
             $user = $dbProvider->createUser($formUser);
             $registered = true;
+            $logger->info($user->name . 'registered');
 
         } else {
             $message = "Your email or password did not match. Please try again";
@@ -43,6 +44,9 @@ if (isset($_POST['username'], $_POST['dob'], $_POST['email'], $_POST['password']
     <img class="banner" src="../uploads/Beer_banner.jpeg">
     <?php include 'template_parts/navigation.php'?>
     <h1>Register</h1>
+    <?php if (isset($message)): ?>
+    <div class="alert alert-warning"><?= $message ?></div>
+    <?php endif; ?>
     <?php if ($registered): ?>
     <div class="alert alert-success">You have successfully registered. Please <a href="login.php" title="log in">log in</a></div>
     <?php endif; ?>

@@ -29,7 +29,7 @@ if ($response->success) {
         header('Location: productpage.php?productId=' . $checkInData['product_id'] . '&message=error');
     }
 
-    $hydrator = new \App\Hydrator\CheckInHydrator();
+    $hydrator = $container[\App\Hydrator\CheckInHydrator::class];
     $checkIn = $hydrator->hydrateCheckIn($checkInData);
 
     $newCheckIn = $dbProvider->createCheckIn($checkIn);
