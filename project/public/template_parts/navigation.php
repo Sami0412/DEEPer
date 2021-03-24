@@ -30,6 +30,9 @@
             <li class="nav-item">
                 <div class="nav-link">Hello, <?= $loggedInUser->name ?></div>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="logout.php">| Log Out</a>
+            </li>
             <?php else: ?>
             <li class="nav-item">
                 <a class="nav-link" href="register.php">Register</a>
