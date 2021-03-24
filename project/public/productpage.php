@@ -11,7 +11,7 @@ if (!isset($_GET['productId'])) {
 }
 
 $productId = $_GET['productId'];
-$product = $dbProvider->getProduct($productId);
+$product = $productDbProvider->getProduct($productId);
 
 if (!$product) {
     header('Location: 404.php');

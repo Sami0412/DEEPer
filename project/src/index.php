@@ -32,8 +32,8 @@ if ($response->success) {
     $hydrator = $container[\App\Hydrator\CheckInHydrator::class];
     $checkIn = $hydrator->hydrateCheckIn($checkInData);
 
-    $newCheckIn = $dbProvider->createCheckIn($checkIn);
-    $productName = $dbProvider->getProductById($newCheckIn->product_id);
+    $newCheckIn = $checkInDbProvider->createCheckIn($checkIn);
+    $productName = $productDbProvider->getProductById($newCheckIn->product_id);
 
     $logger->info('Review added to ' . $productName);
 

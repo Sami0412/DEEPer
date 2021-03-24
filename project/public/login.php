@@ -5,7 +5,7 @@ use Monolog\Logger;
 require_once '../src/setup.php';
 
 if (isset($_POST['email'], $_POST['password'])) {
-    $user = $dbProvider->getUserByEmail($_POST['email']);
+    $user = $userDbProvider->getUserByEmail($_POST['email']);
 
     if ($user && password_verify($_POST['password'], $user->password)) {
         //session id stored on local browser

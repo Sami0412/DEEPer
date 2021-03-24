@@ -43,7 +43,7 @@ if (!empty($_POST)) {
         }
 
         //Create product by passing new product instance to dbprovider function
-        $product = $dbProvider->createProduct($newProduct);
+        $product = $productDbProvider->createProduct($newProduct);
         $logger->info("Product created: " . $product->title);
         //Send user to newly created product page
         header('Location: productpage.php?productId=' . $product->id);

@@ -22,7 +22,7 @@ if (isset($_POST['username'], $_POST['dob'], $_POST['email'], $_POST['password']
             $hydrator = $container[UserHydrator::class];
             $formUser = $hydrator->hydrateUser($formUser);
 
-            $user = $dbProvider->createUser($formUser);
+            $user = $userDbProvider->createUser($formUser);
             $registered = true;
             $logger->info($user->name . 'registered');
 

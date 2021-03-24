@@ -1,6 +1,5 @@
 <?php
 
-use App\DataProvider\DatabaseProvider;
 use Pimple\Container;
 use Monolog\Logger;
 
@@ -31,11 +30,23 @@ $container[PDO::class] = static function (Container $c) {
     return $dbh;
 };
 
-$container[DatabaseProvider::class] = static function (Container $container) {
-    return new DatabaseProvider(
+$container[\App\DataProvider\ProductDataProvider::class] = static function (Container $container) {
+    return new \App\DataProvider\ProductDataProvider(
         $container[PDO::class],
-        $container[\App\Hydrator\CheckInHydrator::class],
-        $container[\App\Hydrator\ProductHydrator::class],
+        $container[\App\Hydrator\ProductHydrator::class]
+    );
+};
+
+$container[\App\DataProvider\CheckInDataProvider::class] = static function (Container $container) {
+    return new \App\DataProvider\CheckInDataProvider(
+        $container[PDO::class],
+        $container[\App\Hydrator\CheckInHydrator::class]
+    );
+};
+
+$container[\App\DataProvider\UserDataProvider::class] = static function (Container $container) {
+    return new \App\DataProvider\UserDataProvider(
+        $container[PDO::class],
         $container[\App\Hydrator\UserHydrator::class]
     );
 };
