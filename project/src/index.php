@@ -5,7 +5,7 @@ use App\Hydrator\EntityHydrator;
 
 require_once 'setup.php';
 
-//Google ReCAPTCHA setup
+//Google ReCAPTCHA setup - Disable for testing
 $secretKey = $_ENV['secretKey'];
 $responseKey = $_POST['g-recaptcha-response'];
 $url = "https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$responseKey";
@@ -35,7 +35,7 @@ if ($response->success) {
     $newCheckIn = $dbProvider->createCheckIn($checkIn);
     $productName = $dbProvider->getProductById($newCheckIn->product_id);
 
-    echo '<script type="text/javascript">$("#success").removeClass("hidden")</script>';
+    //echo '<script type="text/javascript">$("#success").removeClass("hidden")</script>';
 
     $logger->info('Review added to ' . $productName);
 

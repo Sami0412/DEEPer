@@ -96,6 +96,7 @@ if (!$product) {
                                     <small id="yourReview" class="form-text text-dark">Tell us what you thought of this beer</small>
                                 </div>
                                 <input type="hidden" name="product_id" id="product_id" value="<?= $productId ?>">
+                                <!--Disable below for testing-->
                                 <div class="g-recaptcha" data-sitekey="6LfWvWEaAAAAAAJGEAI9jrH15qSOyzBFBwOewuGo"></div>
                                 <div class="form-group pt-2">
                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
