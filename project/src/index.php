@@ -35,14 +35,10 @@ if ($response->success) {
     $newCheckIn = $dbProvider->createCheckIn($checkIn);
     $productName = $dbProvider->getProductById($newCheckIn->product_id);
 
-    //echo '<script type="text/javascript">$("#success").removeClass("hidden")</script>';
-
     $logger->info('Review added to ' . $productName);
 
-    header('Location: ../public/productpage.php?productId='. $_POST['product_id']);
+    header('Location: ../public/productpage.php?productId='. $_POST['product_id'] . '&message=success');
 } else {
 
-    echo '<script type="text/javascript">$("#failure").removeClass("hidden")</script>';
-
-   header('Location: ../public/productpage.php?productId='. $_POST['product_id']);
+    header('Location: ../public/productpage.php?productId='. $_POST['product_id'] . '&message=error');
 }

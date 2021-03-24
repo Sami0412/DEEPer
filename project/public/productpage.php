@@ -66,8 +66,14 @@ if (!$product) {
                 <div class="col">
                     <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#checkinModal">Review</button>
                 </div>
-                <div class="justify-content-center mr-5 mb-n4 mt-n2 hidden" id="success" hidden>Your review has been saved</div>
-                <div class="justify-content-center mr-5 mb-n4 mt-n2 hidden" id="failure" hidden>Please try again</div>
+                <?php if (isset($_GET['message']))
+                    if ($_GET['message'] === 'success'): ?>
+                        <div class="alert alert-success mr-4">Your review has been saved</div>
+                    <?php else:
+                        if ($_GET['message'] === 'error'): ?>
+                            <div class="alert alert-danger mr-4">Error submitting review - please try again</div>
+                    <?php endif; ?>
+                <?php endif; ?>
             </div>
             <div class="modal fade" id="checkinModal" tabindex="-1" aria-labelledby="checkinModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
