@@ -63,6 +63,21 @@ nav {
     font-weight: bold;
 }
 
+.noproducts {
+    border: solid gray 1px;
+    padding: 2% 5%;
+    margin-top: 2%;
+    text-align: center;
+    background-image: url("../uploads/beer.jpeg");
+    color: black;
+    font-weight: bold;
+}
+
+.noproducts h3 {
+    font-family: northhead;
+    font-size: 3rem;
+}
+
 .tagline {
     font-weight: bolder;
     font-size: large;

@@ -1,6 +1,7 @@
 <?php
 
-use App\Hydrator\EntityHydrator;
+use App\Hydrator\ProductHydrator;
+use Monolog\Logger;
 
 require_once '../src/setup.php';
 
@@ -16,7 +17,7 @@ if (!empty($_POST)) {
     ];
 
     //Use hydrator to create new product instance, using POST data array
-    $hydrator = new EntityHydrator();
+    $hydrator = $container[ProductHydrator::class];
     $newProduct = $hydrator->hydrateProduct($formData);
 
     //Save uploaded file to required file path
@@ -37,12 +38,12 @@ if (!empty($_POST)) {
                 //Error handling
                 throw new RuntimeException('Failed to move file');
             }
-            //Assign new imagep path to new product instance
+            //Assign new image path to new product instance
             $newProduct->image_path = $targetPath;
         }
 
         //Create product by passing new product instance to dbprovider function
-        $product = $dbProvider->createProduct($newProduct);
+        $product = $productDbProvider->createProduct($newProduct);
         $logger->info("Product created: " . $product->title);
         //Send user to newly created product page
         header('Location: productpage.php?productId=' . $product->id);

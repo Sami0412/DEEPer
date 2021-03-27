@@ -5,7 +5,7 @@ use App\Hydrator\EntityHydrator;
 
 require_once 'setup.php';
 
-//Google ReCAPTCHA setup
+//Google ReCAPTCHA setup - Disable for testing
 $secretKey = $_ENV['secretKey'];
 $responseKey = $_POST['g-recaptcha-response'];
 $url = "https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$responseKey";
@@ -29,20 +29,16 @@ if ($response->success) {
         header('Location: productpage.php?productId=' . $checkInData['product_id'] . '&message=error');
     }
 
-    $hydrator = new EntityHydrator();
+    $hydrator = $container[\App\Hydrator\CheckInHydrator::class];
     $checkIn = $hydrator->hydrateCheckIn($checkInData);
 
-    $newCheckIn = $dbProvider->createCheckIn($checkIn);
-    $productName = $dbProvider->getProductById($newCheckIn->product_id);
-
-    echo '<script type="text/javascript">$("#success").removeClass("hidden")</script>';
+    $newCheckIn = $checkInDbProvider->createCheckIn($checkIn);
+    $productName = $productDbProvider->getProductById($newCheckIn->product_id);
 
     $logger->info('Review added to ' . $productName);
 
-    header('Location: ../public/productpage.php?productId='. $_POST['product_id']);
+    header('Location: ../public/productpage.php?productId='. $_POST['product_id'] . '&message=success');
 } else {
 
-    echo '<script type="text/javascript">$("#failure").removeClass("hidden")</script>';
-
-   header('Location: ../public/productpage.php?productId='. $_POST['product_id']);
+    header('Location: ../public/productpage.php?productId='. $_POST['product_id'] . '&message=error');
 }

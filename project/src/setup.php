@@ -1,36 +1,28 @@
 <?php
 
-use App\DataProvider\DatabaseProvider;
+use App\DataProvider\CheckInDataProvider;
+use App\DataProvider\ProductDataProvider;
+use Dotenv\Dotenv;
+use Monolog\Logger;
 
 require_once '../vendor/autoload.php';
 
-//Set up Whoops: displays errors
-$whoops = new \Whoops\Run();
-$whoops->pushHandler(
-    new \Whoops\Handler\PrettyPageHandler()
-);
-$whoops->register();
-
 //Set up dotenv: Loads variables from .env (environment) file, to keep credentials etc out of main file
-$dotenv = \Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
-//Set up Logger: Log things to a file and put meaningful info in separate file rather than vardumping to screen
-$logger = new \Monolog\Logger('application');
-$logger->pushHandler(
-    new \Monolog\Handler\StreamHandler(
-        'application.log',
-        \Monolog\Logger::DEBUG
-    )
-);
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'dependencies.php';
 
-$dbProvider = new DatabaseProvider();
+$logger = $container[Logger::class];
+$productDbProvider = $container[ProductDataProvider::class];
+$checkInDbProvider = $container[CheckInDataProvider::class];
+$userDbProvider = $container[\App\DataProvider\UserDataProvider::class];
 
 //Create $_SESSION superglobal
 //session is a cookie (temp storage) stored on server
 session_start();
 
 if (isset($_SESSION['LoginId'])) {
-    $loggedInUser = $dbProvider->getUser($_SESSION['LoginId']);
+    $loggedInUser = $userDbProvider->getUser($_SESSION['LoginId']);
 }
 

@@ -1,9 +1,11 @@
 <?php
 
+use Monolog\Logger;
+
 require_once '../src/setup.php';
 
 if (isset($_POST['email'], $_POST['password'])) {
-    $user = $dbProvider->getUserByEmail($_POST['email']);
+    $user = $userDbProvider->getUserByEmail($_POST['email']);
 
     if ($user && password_verify($_POST['password'], $user->password)) {
         //session id stored on local browser
@@ -11,6 +13,7 @@ if (isset($_POST['email'], $_POST['password'])) {
         header('Location: product_list.php');
         exit();
     } else {
+        $logger->alert('Incorrect log in details entered');
         $errorMessage = "Incorrect email and password combination, please try again";
     }
 }

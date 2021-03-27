@@ -4,8 +4,19 @@ use App\Hydrator\EntityHydrator;
 
 require_once '../src/setup.php';
 
+if (!isset($_GET['productId'])) {
+    //Redirect to an error page with link back to product list??
+    header('Location: 404.php');
+    die;
+}
+
 $productId = $_GET['productId'];
-$product = $dbProvider->getProduct($productId);
+$product = $productDbProvider->getProduct($productId);
+
+if (!$product) {
+    header('Location: 404.php');
+    die;
+}
 
 ?>
 <!doctype html>
@@ -55,8 +66,14 @@ $product = $dbProvider->getProduct($productId);
                 <div class="col">
                     <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#checkinModal">Review</button>
                 </div>
-                <div class="justify-content-center mr-5 mb-n4 mt-n2 hidden" id="success" hidden>Your review has been saved</div>
-                <div class="justify-content-center mr-5 mb-n4 mt-n2 hidden" id="failure" hidden>Please try again</div>
+                <?php if (isset($_GET['message']))
+                    if ($_GET['message'] === 'success'): ?>
+                        <div class="alert alert-success mr-4">Your review has been saved</div>
+                    <?php else:
+                        if ($_GET['message'] === 'error'): ?>
+                            <div class="alert alert-danger mr-4">Error submitting review - please try again</div>
+                    <?php endif; ?>
+                <?php endif; ?>
             </div>
             <div class="modal fade" id="checkinModal" tabindex="-1" aria-labelledby="checkinModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -85,6 +102,7 @@ $product = $dbProvider->getProduct($productId);
                                     <small id="yourReview" class="form-text text-dark">Tell us what you thought of this beer</small>
                                 </div>
                                 <input type="hidden" name="product_id" id="product_id" value="<?= $productId ?>">
+                                <!--Disable below for testing-->
                                 <div class="g-recaptcha" data-sitekey="6LfWvWEaAAAAAAJGEAI9jrH15qSOyzBFBwOewuGo"></div>
                                 <div class="form-group pt-2">
                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
