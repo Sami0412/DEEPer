@@ -4,7 +4,7 @@
     "license": "proprietary",
     "config": {
         "platform": {
-            "php":"7.4.9"
+            "php": "7.4.9"
         },
         "sort-packages": true
     },
@@ -17,9 +17,14 @@
         "filp/whoops": "^2.9",
         "google/recaptcha": "^1.2",
         "monolog/monolog": "^2.2",
+        "pimple/pimple": "^3.4",
         "vlucas/phpdotenv": "^5.3"
     },
     "require-dev": {
+        "codeception/codeception": "^4.1",
+        "codeception/module-asserts": "^1.0.0",
+        "codeception/module-phpbrowser": "^1.0.0",
+        "codeception/module-webdriver": "^1.2",
         "roave/security-advisories": "dev-master",
         "symfony/var-dumper": "^5.1"
     }

@@ -1,30 +1,21 @@
 <?php
 
+
 namespace App\DataProvider;
 
 use App\Entity\Product;
-use App\Entity\CheckIn;
-use App\Hydrator\EntityHydrator;
+use App\Hydrator\ProductHydrator;
 use PDO;
 
-class DatabaseProvider
+class ProductDataProvider
 {
     private PDO $dbh;
+    private ProductHydrator $productHydrator;
 
-    public function __construct()
+    public function __construct(PDO $dbh, ProductHydrator $productHydrator)
     {
-        try {
-            $this->dbh = new PDO(
-                "mysql:dbname=myproject;host=mysql",
-                $_ENV['DBUSERNAME'],
-                $_ENV['DBPASSWD']
-            );
-
-            $this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        } catch (PDOException $e) {
-            die("Database connection failed");
-        }
+        $this->dbh = $dbh;
+        $this->productHydrator = $productHydrator;
     }
 
     public function getProducts(string $searchTerm): array
@@ -37,19 +28,20 @@ class DatabaseProvider
             FROM products p WHERE title LIKE :searchTerm'
         );
 
-//Works even when no search term entered - passes %% into stmt which searches for everything
+        //Works even when no search term entered - passes %% into stmt which searches for everything
         $stmt->execute([
             'searchTerm' => '%' . $searchTerm . '%'
         ]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+
     public function getProduct(int $productId): ?Product
     {
         $stmt = $this->dbh->prepare(
             'SELECT
             p.id AS product_id, p.title, p.description, p.image_path, p.abv, p.beer_style, p.brewery,
-            c.id, c.user_name, c.rating, c.review, c.submitted,
+            c.id, c.user_name AS name, c.rating, c.review, c.submitted,
             (
                 SELECT AVG(IFNULL(checkins.rating, 0)) FROM checkins WHERE product_id = p.id
             ) AS avg_rating
@@ -57,36 +49,50 @@ class DatabaseProvider
             LEFT JOIN checkins AS c ON c.product_id = p.id
             WHERE p.id = :id'
         );
-//Insert product id from URL & execute query
+        //Insert product id from URL & execute query
         $stmt->execute([
             'id' => $productId
         ]);
-//Retrieve array
+        //Retrieve array
         $productAndCheckInData = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        $hydrator = new EntityHydrator();
-        return $hydrator->hydrateProductWithCheckIns($productAndCheckInData);
+        return $this->productHydrator->hydrateProductWithCheckIns($productAndCheckInData);
     }
 
-    public function getCheckIn(): ?CheckIn
+
+    public function getProductById(int $productId): string
     {
+        $stmt = $this->dbh->prepare(
+            'SELECT title FROM products
+            WHERE id = :id'
+        );
 
+        $stmt->execute([
+            'id' => $productId
+        ]);
+
+        return $stmt->fetchColumn();
     }
+
 
     public function createProduct(Product $product): Product
     {
         //Insert into database
         $stmt = $this->dbh->prepare(
-            'INSERT INTO products(title, description)
-            VALUES (:title, :description)'
+            'INSERT INTO products(title, description, image_path, abv, beer_style, brewery)
+            VALUES (:title, :description, :imagePath, :abv, :beerStyle, :brewery)'
         );
 
         $stmt->execute([
             'title' => $product->title,
-            'description' => $product->description
+            'description' => $product->description,
+            'imagePath' => $product->image_path,
+            'abv' => $product->abv,
+            'beerStyle' => $product->beerStyle,
+            'brewery' => $product->brewery
         ]);
 
-        //Use builtin function lastInsertId to get the newly created ID for the new product
+        //Use built-in function lastInsertId to get the newly created ID for the new product
         $lastInsertId = $this->dbh->lastInsertId();
         //Pass new ID into getProduct to retrieve all DB info of new product
         $newProduct = $this->getProduct($lastInsertId);

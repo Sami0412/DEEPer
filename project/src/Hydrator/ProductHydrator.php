@@ -2,37 +2,32 @@
 
 namespace App\Hydrator;
 
-use App\Entity\CheckIn;
 use App\Entity\Product;
 
-class EntityHydrator
+class ProductHydrator
 {
+    private Product $product;
+    private CheckInHydrator $checkInHydrator;
+
+    public function __construct(Product $product, CheckInHydrator $checkInHydrator)
+    {
+        $this->product = $product;
+        $this->checkInHydrator = $checkInHydrator;
+    }
+
     public function hydrateProduct(array $data): Product
     {
-        $product = new Product();
-        $product->id = $data['id'];
+        $product = clone $this->product;
+        $product->id = $data['id'] ?? null;
         $product->title = $data['title'];
         $product->description = $data['description'];
         $product->abv = $data['abv'];
         $product->beerStyle = $data['beer_style'];
         $product->brewery = $data['brewery'];
-        $product->image_path = $data['image_path'];
-        $product->avg_rating = $data['avg_rating'];
+        $product->image_path = $data['image_path'] ?? null;
+        $product->avg_rating = $data['avg_rating'] ?? null;
 
         return $product;
-    }
-
-    public function hydrateCheckIn(array $data): CheckIn
-    {
-        $checkIn = new CheckIn();
-        $checkIn->id = $data['id'];
-        $checkIn->product_id = $data['product_id'];
-        $checkIn->name = $data['user_name'];
-        $checkIn->rating = $data['rating'];
-        $checkIn->review = $data['review'];
-        $checkIn->posted = $data['submitted'];
-
-        return $checkIn;
     }
 
     public function hydrateProductWithCheckIns(array $data): Product
@@ -53,17 +48,12 @@ class EntityHydrator
         $product = $this->hydrateProduct($productData);
 
         foreach ($data as $checkinRow) {
-            if ($checkinRow['user_name'] !== null) {
-                $checkIn = $this->hydrateCheckIn($checkinRow);
+            if ($checkinRow['name'] !== null) {
+                $checkIn = $this->checkInHydrator->hydrateCheckIn($checkinRow);
                 $product->addCheckin($checkIn);
             }
         }
 
         return $product;
-    }
-
-    public function hydrateUser(array $data): User
-    {
-
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-use App\Hydrator\EntityHydrator;
+use App\Hydrator\ProductHydrator;
 
 require_once '../src/setup.php';
 
@@ -11,9 +11,11 @@ if (isset($_POST['search'])) {
 }
 
 //Display all products OR searched products from database on page:
-$productsData = $dbProvider->getProducts($searchTerm);
+$productsData = $productDbProvider->getProducts($searchTerm);
 
-$hydrator = new EntityHydrator();
+$logger->info('Retrieved ' . count($productsData) . ' products for ' . $searchTerm);
+
+$hydrator = $container[ProductHydrator::class];
 foreach ($productsData as $row) {
     $productsList[] = $hydrator->hydrateProduct($row);
 }
@@ -22,7 +24,7 @@ foreach ($productsData as $row) {
 <html lang="en">
 <head>
     <?php include 'template_parts/header_includes.php' ?>
-    <link rel="stylesheet" href="../src/beerlist.css">
+    <link rel="stylesheet" href="beerlist.css">
     <title>Craft Beer Selection</title>
 </head>
 <body class="container">
@@ -46,13 +48,25 @@ foreach ($productsData as $row) {
     <button type="submit" class="btn btn-primary">Search</button>
 </form>
 
+<?php
+if (isset($productsList)) {
+    echo count($productsList) . ' result' . (count($productsList) === 1 ? '' : 's') . ' found.';
+}
+?>
+
 <div class="row my-4">
     <?php if (empty($productsData)): ?>
-        <h6>No products found</h6>
+        <div class="noproducts col-12">
+            <h3 class="ml-3">No products found</h3>
+            <p>Can't find the beer you're looking for?</p>
+            <p>Submit your own beer here: <a href="add_product.php">Add Beer</a></p>
+            <hr>
+            <a href="product_list.php">Back to beer list</a>
+        </div>
     <?php else: foreach ($productsList as $product): ?>
-    <a class="col-lg-4 col-md-6 col-sm-6 col-12" href="productpage.php?productId=<?= $product->id; ?>">
+    <a id="item" class="col-lg-4 col-md-6 col-sm-6 col-12" href="productpage.php?productId=<?= $product->id; ?>">
         <div class="beer-pic">
-            <img src="<?= '../' . $product->image_path; ?>">
+            <img src="<?= $product->image_path; ?>">
             <div class="row">
                 <h6 class="col-12"><?= $product->title; ?></h6>
             </div>
@@ -62,4 +76,3 @@ foreach ($productsData as $row) {
 </div>
 <?php include 'template_parts/footer_includes.php'?>
 </body>
-</html>
