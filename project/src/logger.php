@@ -20,7 +20,7 @@ $logger->pushHandler(
     new RotatingFileHandler(       //Rotates i.e. produces new log file each day with new timestamp
         dirname(__DIR__) . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'application.log',      //same as ../logs/application.log but safer as / & \ differ between Windows & Mac!
         5,
-        Logger::WARNING
+        Logger::DEBUG
     )
 );
 

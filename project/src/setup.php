@@ -2,21 +2,21 @@
 
 use App\DataProvider\CheckInDataProvider;
 use App\DataProvider\ProductDataProvider;
-use Dotenv\Dotenv;
-use Monolog\Logger;
+use App\DataProvider\UserDataProvider;
 
 require_once '../vendor/autoload.php';
 
 //Set up dotenv: Loads variables from .env (environment) file, to keep credentials etc out of main file
-$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv = \Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'dependencies.php';
 
-$logger = $container[Logger::class];
+$logger = $container[\Monolog\Logger::class];
+
 $productDbProvider = $container[ProductDataProvider::class];
 $checkInDbProvider = $container[CheckInDataProvider::class];
-$userDbProvider = $container[\App\DataProvider\UserDataProvider::class];
+$userDbProvider = $container[UserDataProvider::class];
 
 //Create $_SESSION superglobal
 //session is a cookie (temp storage) stored on server

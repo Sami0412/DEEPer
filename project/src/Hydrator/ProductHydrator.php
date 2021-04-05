@@ -6,8 +6,8 @@ use App\Entity\Product;
 
 class ProductHydrator
 {
-    private CheckInHydrator $checkInHydrator;
     private Product $product;
+    private CheckInHydrator $checkInHydrator;
 
     public function __construct(Product $product, CheckInHydrator $checkInHydrator)
     {

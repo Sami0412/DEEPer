@@ -15,7 +15,7 @@ class UserHydrator
 
     public function hydrateUser(array $data): User
     {
-        $user = clone $this->user;          //If you don't clone, old data will stay in hydrator
+        $user = clone $this->user;
         $user->id = $data['id'] ?? null;
         $user->name = $data['username'];
         $user->email = $data['email'];

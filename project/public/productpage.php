@@ -1,7 +1,5 @@
 <?php
 
-use App\Hydrator\EntityHydrator;
-
 require_once '../src/setup.php';
 
 if (!isset($_GET['productId'])) {
@@ -14,6 +12,7 @@ $productId = $_GET['productId'];
 $product = $productDbProvider->getProduct($productId);
 
 if (!$product) {
+    $logger->warning('Product not found: ' . $productId);
     header('Location: 404.php');
     die;
 }
@@ -170,7 +169,6 @@ if (!$product) {
 </section>
 
 <?php include 'template_parts/footer_includes.php'?>
-<!--<script src="../src/main.js"></script>-->
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </body>
 </html>

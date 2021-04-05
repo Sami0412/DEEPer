@@ -17,14 +17,15 @@ if (isset($_POST['username'], $_POST['dob'], $_POST['email'], $_POST['password']
                 'username' => strip_tags($_POST['username']),
                 'email' => filter_var($_POST['email'], FILTER_SANITIZE_EMAIL),
                 'password' => password_hash($_POST['password'], PASSWORD_DEFAULT)
+                //Capture DoB as well
             ];
 
             $hydrator = $container[UserHydrator::class];
             $formUser = $hydrator->hydrateUser($formUser);
-
+            /** @var \App\DataProvider\UserDataProvider $userDbProvider */
             $user = $userDbProvider->createUser($formUser);
             $registered = true;
-            $logger->info($user->name . 'registered');
+            $logger->info($user->name . ' registered');
 
         } else {
             $message = "Your email or password did not match. Please try again";
@@ -45,10 +46,10 @@ if (isset($_POST['username'], $_POST['dob'], $_POST['email'], $_POST['password']
     <?php include 'template_parts/navigation.php'?>
     <h1>Register</h1>
     <?php if (isset($message)): ?>
-    <div class="alert alert-warning"><?= $message ?></div>
+        <div class="alert alert-warning"><?= $message ?></div>
     <?php endif; ?>
     <?php if ($registered): ?>
-    <div class="alert alert-success">You have successfully registered. Please <a href="login.php" title="log in">log in</a></div>
+        <div class="alert alert-success">You have successfully registered. Please <a href="login.php" title="log in">log in</a></div>
     <?php endif; ?>
     <div class="card p-4">
         <form method="post">
@@ -77,9 +78,6 @@ if (isset($_POST['username'], $_POST['dob'], $_POST['email'], $_POST['password']
         </form>
     </div>
 </div>
-
-
-
 
 <?php include 'template_parts/footer_includes.php'?>
 </body>

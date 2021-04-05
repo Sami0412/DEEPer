@@ -8,6 +8,7 @@ use App\Entity\CheckIn;
 use App\Hydrator\CheckInHydrator;
 use PDO;
 
+
 class CheckInDataProvider
 {
     private PDO $dbh;

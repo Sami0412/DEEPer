@@ -6,7 +6,7 @@ namespace App\DataProvider;
 
 use App\Entity\User;
 use App\Hydrator\UserHydrator;
-use PDO;
+Use PDO;
 
 class UserDataProvider
 {

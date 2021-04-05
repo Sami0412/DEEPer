@@ -28,7 +28,7 @@ class ProductDataProvider
             FROM products p WHERE title LIKE :searchTerm'
         );
 
-//Works even when no search term entered - passes %% into stmt which searches for everything
+        //Works even when no search term entered - passes %% into stmt which searches for everything
         $stmt->execute([
             'searchTerm' => '%' . $searchTerm . '%'
         ]);

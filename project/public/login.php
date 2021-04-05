@@ -1,7 +1,5 @@
 <?php
 
-use Monolog\Logger;
-
 require_once '../src/setup.php';
 
 if (isset($_POST['email'], $_POST['password'])) {
@@ -52,11 +50,6 @@ if (isset($_POST['email'], $_POST['password'])) {
             </div>
         </div>
     </form>
-
-
-
-
-
 </div>
 <?php include 'template_parts/footer_includes.php'; ?>
 </body>
